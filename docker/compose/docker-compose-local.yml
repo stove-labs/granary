@@ -1,0 +1,12 @@
+version: '3'
+services:
+  node:
+    image: tezos-app-stack-local
+    command: bash -c 'sed -i -e 's/127.0.0.1/0.0.0.0/g' ./tezos/src/bin_node/tezos-sandboxed-node.sh; ./tezos/src/bin_node/tezos-sandboxed-node.sh 1'
+    ports:
+      - "18731:18731"
+      - "8732:8732"
+  # client:
+  #   image: tezos-app-stack-local
+  #   working_dir: /tezos
+  #   command: bash -c 'sleep 5s; sed -i -e 's/127.0.0.1/compose_node_1/g' ./src/bin_client/tezos-init-sandboxed-client.sh;eval `./src/bin_client/tezos-init-sandboxed-client.sh 1`;tezos-activate-alpha; tail -f /dev/null'
