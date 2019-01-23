@@ -37,7 +37,7 @@ Tezos environment manager provides a seamless way to develop apps locally for ma
 
 ## Example with [sotez](https://www.npmjs.com/package/sotez)
 
-You can find an attached example of `sotez.rpc.getBalance` in the `examples/` folder. 
+You can find an attached example of `sotez.node.query` in the `examples/` folder. 
 
 #### Running the example
 
