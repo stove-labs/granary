@@ -1,6 +1,6 @@
 # Tezos Environment Manager 🏖
 
-#### This project is a WIP, contact t.me/maht0rz for any questions
+#### This project is a WIP, contact [t.me/maht0rz](t.me/maht0rz) for any questions
 
 Tezos environment manager provides a seamless way to develop apps locally for mainstream networks such as `alphanet`, while enabling **sandboxed private network** in form of `sandboxnet`
 
