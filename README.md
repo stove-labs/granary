@@ -8,6 +8,14 @@ Tezos environment manager provides a seamless way to **develop smart contracts a
 
 > Sections of readme with '🏖 ' are only applicable to the `sandboxnet` environment
 
+## 👀  Quick overview
+
+### Sending a transaction using `sandboxnet`
+![](https://gateway.pinata.cloud/ipfs/QmbkmQj3KRPzMQcXuvxMTFVLDWr1Kbzo18YpFEgmfYh34V)
+
+### Deploying a ReasonML smart contract at `sandboxnet`
+![](https://gateway.pinata.cloud/ipfs/QmSpsrVgWLUwCwW7YiauBcpAXzQUZvkRVBSjJCbeVCHBn5)
+
 ## 🛠 Setup
 
 **1. Choose an environment / network**
@@ -139,3 +147,7 @@ npm run head
 npm run contract
 ```
 
+## 🚗 Roadmap
+
+- Automated contract deployment & testing in ReasonML / OCaml & bs-jest
+- Alphanet support

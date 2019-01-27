@@ -6,10 +6,10 @@ build:
 	docker image build -t tezos-environment-manager/tezos-client-liquidity -f ./docker/images/tezos-client-liquidity/Dockerfile .
 
 start:
-	sh ./scripts/$(TEZOS_NETWORK)/commands.sh start
+	sh ./scripts/$(NETWORK_TYPE)/commands.sh start
 
 stop:
-	sh ./scripts/$(TEZOS_NETWORK)/commands.sh stop
+	sh ./scripts/$(NETWORK_TYPE)/commands.sh stop
 
 client:
-	sh ./scripts/$(TEZOS_NETWORK)/commands.sh client
+	sh ./scripts/$(NETWORK_TYPE)/commands.sh client
