@@ -1,18 +1,17 @@
-FROM ubuntu:xenial
+FROM ubuntu:latest
 
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     apt-get dist-upgrade -y && \
-    add-apt-repository ppa:ansible/bubblewrap && \
     add-apt-repository ppa:git-core/ppa && \
     apt-get update -y && \
     apt-get install -y git && \
     apt-get install -y wget patch unzip make gcc m4 git g++ aspcud bubblewrap curl bzip2 rsync libev-dev libgmp-dev pkg-config libhidapi-dev
 
-# Install OPAM 2.0.0~rc4
-RUN wget https://github.com/ocaml/opam/releases/download/2.0.0-rc4/opam-2.0.0-rc4-x86_64-linux && \
-    mv opam-2.0.0-rc4-x86_64-linux /usr/local/bin/opam && \
+# Install OPAM 2.0.2
+RUN wget https://github.com/ocaml/opam/releases/download/2.0.2/opam-2.0.2-x86_64-linux && \
+    mv opam-2.0.2-x86_64-linux /usr/local/bin/opam && \
     chmod a+x /usr/local/bin/opam
 
 # Initialize OPAM, disable sandboxing, otherwise bubblewrap won't work in docker
@@ -27,3 +26,7 @@ RUN eval $(opam env) && \
 RUN cd tezos && \
     eval $(opam env) && \
     make
+
+# Setup shell for sandboxnet development
+# RUN echo 'eval `./tezos/src/bin_client/tezos-init-sandboxed-client.sh 1`' >> ~/.bashrc && \
+#     echo 'tezos-activate-alpha' >> ~/.bashrcroot@88d24fd300e7:/tmp/tezos-tmp-client.r1z6TvQR#

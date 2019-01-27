@@ -2,13 +2,14 @@ ARGS = $(filter-out $@,$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
 
 build:
-	docker image build -t tezos-app-stack-local -f ./docker/images/Dockerfile-local .
+	docker image build -t tezos-environment-manager/sandbox-node -f ./docker/images/sandbox-node/Dockerfile . && \
+	docker image build -t tezos-environment-manager/tezos-client-liquidity -f ./docker/images/tezos-client-liquidity/Dockerfile .
 
 start:
-	sh ./scripts/tezos/$(TEZOS_NETWORK).sh start --rpc-port 18731
+	sh ./scripts/$(TEZOS_NETWORK)/commands.sh start
 
 stop:
-	sh ./scripts/tezos/$(TEZOS_NETWORK).sh stop
+	sh ./scripts/$(TEZOS_NETWORK)/commands.sh stop
 
-shell:
-	sh ./scripts/tezos/$(TEZOS_NETWORK).sh shell
+client:
+	sh ./scripts/$(TEZOS_NETWORK)/commands.sh client

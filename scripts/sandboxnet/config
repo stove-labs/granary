@@ -1,0 +1,8 @@
+{
+    "base_dir": "/root/.tezos-client",
+    "node_addr": "sandboxnet_node",
+    "node_port": 18731,
+    "tls": false,
+    "web_port": 8080,
+    "confirmations": 0
+}

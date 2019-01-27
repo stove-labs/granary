@@ -3,5 +3,5 @@ const provider = "http://localhost:18731";
 
 sotez.node.setProvider(provider);
 
-sotez.node.query('/chains/main/blocks/head')
-  .then(response => console.log(response));
+sotez.contract.load('KT1WBCA1YLiuUazqVbYiRNfuQeaq8SPmh2r1')
+  .then(console.log);
