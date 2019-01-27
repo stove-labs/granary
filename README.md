@@ -11,10 +11,10 @@ Tezos environment manager provides a seamless way to **develop smart contracts a
 ## 👀  Quick overview
 
 ### Sending a transaction using `sandboxnet`
-![](https://gateway.pinata.cloud/ipfs/QmbkmQj3KRPzMQcXuvxMTFVLDWr1Kbzo18YpFEgmfYh34V)
+![](https://gateway.pinata.cloud/ipfs/QmTTwU6vZDBbreuuHd4e1LiAEXL2V455785cLvEnMnJ1i7)
 
 ### Deploying a ReasonML smart contract at `sandboxnet`
-![](https://gateway.pinata.cloud/ipfs/QmSpsrVgWLUwCwW7YiauBcpAXzQUZvkRVBSjJCbeVCHBn5)
+![](https://gateway.pinata.cloud/ipfs/QmQfax5YpByhZnnE5sxheeizXxi9ewqkW1LF4VVtbiKkdf)
 
 ## 🛠 Setup
 
