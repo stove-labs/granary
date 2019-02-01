@@ -89,6 +89,17 @@ tezos-client get balance for bootstrap2
 
 > `simple.re` example has to be converted into liquidity first, see above.
 
+#### Simulating a smart contract execution
+```bash
+liquidity \
+    --tezos-node $NODE_URL \
+    --amount 2tz \
+    tezos-environment-manager/src/contracts/simple.liq \
+    --run main '5' '1'
+```
+
+> The command above, will test our `simple.liq` smart contract, by calling it's entry point `main`, with it's single argument as `1`, while setting it's initial storage value to `5`.
+
 #### Forging a contract deployment
 
 > ⚠️&nbsp;`$NODE_URL` is set based on your environment automatically
