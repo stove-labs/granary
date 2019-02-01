@@ -10,6 +10,9 @@ Tezos environment manager provides a seamless way to **develop smart contracts a
 
 ## 👀  Quick overview
 
+### Block explorer for `sandboxnet`
+![](https://gateway.pinata.cloud/ipfs/QmX931XSq9KVmPD9y5C7Fqmjfa5uU99rYZvguCXGC33rbw)
+
 ### Sending a transaction using `sandboxnet`
 ![](https://gateway.pinata.cloud/ipfs/QmTTwU6vZDBbreuuHd4e1LiAEXL2V455785cLvEnMnJ1i7)
 
@@ -43,7 +46,6 @@ make start
 make client
 ```
         
-
 ## 🕹 Useful commands
 
 ### Miscelanious
@@ -123,8 +125,16 @@ You can use the following command, to get the originated address of your contrac
 tezos-client get receipt for operation_hash_goes_here
 ```
 
+## 🔍 Block explorer 
 
-## 🔍 Examples
+Once your local environment is up & running, you can 
+visit the block explorer *(tzscan)* at [`http://localhost:8000`](http://localhost:8000)
+
+Don't forget to bake a new block after you inject any operations using the client.
+
+> 👷‍ Listing of all existing blocks does not seem to work at the moment, however dashboard displays blocks as it should
+
+## 📚 Examples
 
 ### RPC with [Sotez](https://www.npmjs.com/package/sotez)
 

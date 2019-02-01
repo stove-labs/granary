@@ -26,7 +26,3 @@ RUN eval $(opam env) && \
 RUN cd tezos && \
     eval $(opam env) && \
     make
-
-# Setup shell for sandboxnet development
-# RUN echo 'eval `./tezos/src/bin_client/tezos-init-sandboxed-client.sh 1`' >> ~/.bashrc && \
-#     echo 'tezos-activate-alpha' >> ~/.bashrcroot@88d24fd300e7:/tmp/tezos-tmp-client.r1z6TvQR#

@@ -2,7 +2,7 @@ command=$1
 
 case "$command" in
     start)
-        docker-compose -f ./docker/compose/docker-compose-local.yml up -d
+        docker-compose -f ./docker/compose/docker-compose-local.yml up
         ;;
     stop)
         docker-compose -f ./docker/compose/docker-compose-local.yml down
