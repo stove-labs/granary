@@ -136,6 +136,11 @@ You can use the following command, to get the originated address of your contrac
 tezos-client get receipt for operation_hash_goes_here
 ```
 
+#### Display private key for an account
+```bash
+tezos-client show address  bootstrap1 -S
+```
+
 ## 🔍 Block explorer 
 
 Once your local environment is up & running, you can 
