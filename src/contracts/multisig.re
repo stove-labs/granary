@@ -25,8 +25,9 @@ type storage = {
     let him move forward
 */
 let can_call = (storage) => {
-    let sender = Current.source();
-    Set.mem(sender, storage.owners)
+    let source = Current.source();
+    let sender = Current.sender();
+    Set.mem(source, storage.owners) && Set.mem(sender, storage.owners)
 };
 
 /* 
