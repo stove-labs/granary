@@ -25,9 +25,8 @@ type storage = {
     let him move forward
 */
 let can_call = (storage) => {
-    let source = Current.source();
     let sender = Current.sender();
-    Set.mem(source, storage.owners) && Set.mem(sender, storage.owners)
+    Set.mem(sender, storage.owners)
 };
 
 /* 
@@ -95,7 +94,7 @@ let delete_proposition = (storage, transactions) => {
 */
 [%%entry let sign_proposition = (parameter: unit, storage) => {
     if (can_call(storage)) {
-        let sender = Current.source();
+        let sender = Current.sender();
         ([], {
             last_proposition: storage.last_proposition,
             owners: storage.owners,
