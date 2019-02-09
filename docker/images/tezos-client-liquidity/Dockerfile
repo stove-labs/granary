@@ -1,5 +1,6 @@
 FROM tezos-environment-manager/sandbox-node:latest
 
+RUN apt-get update
 RUN git clone https://github.com/OCamlPro/liquidity 
 
 
