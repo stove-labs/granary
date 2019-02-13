@@ -1,7 +1,9 @@
-FROM tezos-environment-manager/sandbox-node:latest
+FROM maht0rz/tezos-environment-manager-sandbox-node:latest
 
 RUN apt-get update
 RUN git clone https://github.com/OCamlPro/liquidity 
+RUN cd liquidity && \
+    git checkout 1695a03ba98fb09261140cd4d19e63a15004cb2b
 
 
 RUN apt-get install -y libcurl4-gnutls-dev && \

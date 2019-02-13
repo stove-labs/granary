@@ -1,4 +1,4 @@
-FROM tezos-environment-manager/sandbox-node:latest
+FROM maht0rz/tezos-environment-manager-sandbox-node:latest
 
 RUN git clone https://gitlab.com/tzscan/tzscan
 
@@ -71,7 +71,7 @@ RUN cd tzscan && \
     touch Makefile.database && \
     echo "API_HOST:=localhost\nAPI_PORT:=8080\nNEED_PARSEXP=true" >> Makefile.database
 
-RUN opam install js_of_ocaml.3.2.0
+RUN opam install js_of_ocaml.3.2.0 base64.2.3.0
 
 RUN cd tzscan && \
     service postgresql start && \

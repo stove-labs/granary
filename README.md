@@ -24,27 +24,36 @@ Tezos environment manager provides a seamless way to **develop smart contracts a
 **1. Choose an environment / network**
 
 ```bash
-source ./env/tezos/sandboxnet.sh
+source ./env/sandboxnet.sh
 ```
 
-**2. Build the docker images**
-> ⏱ This might take a while, be patient! ⏱ 
-
-```bash
-make build
-```
-
-**3. Start the apropriate node**
-        
+**2. Start the apropriate tezos node**
 ```bash
 make start
 ```
 
-**4. Open the interactive shell with `tezos-client` and `liquidity` preconfigured**
+**3. Open the interactive shell with `tezos-client` and `liquidity` preconfigured**
 > ⚠️ &nbsp; All Tezos related commands will be ran inside this shell
 ```bash
 make client
 ```
+
+Inside the newly started shell, initialize the `tezos-client` by running:
+
+```bash
+# Run this inside the shell created by make client
+init-client
+```
+
+> ⚠️ `tezos-client` needs to be initialised only once, unless you delete/restart your bootstrapped network.
+
+**4. Confirm the setup by navigating to local TzScan**
+
+TzScan is available at [http://localhost:8000/](http://localhost:8000/). 
+
+You should see your sandboxed network with *no transactions at block 1*, baked by *God*.
+
+
         
 ## 🕹 Useful commands
 

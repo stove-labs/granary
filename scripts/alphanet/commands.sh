@@ -8,6 +8,6 @@ case "$command" in
         ./scripts/original/alphanet.sh node stop
         ;;
     shell)
-        docker run -e NETWORK_TYPE=$NETWORK_TYPE --network compose_default  -v $PWD:/tezos-environment-manager -it tezos-environment-manager/tezos-client-liquidity:latest /bin/bash
+        docker run -e NETWORK_TYPE=$NETWORK_TYPE --network compose_default  -v $PWD:/tezos-environment-manager -it maht0rz/tezos-environment-manager-tezos-client-liquidity:latest /bin/bash
         ;;
 esac
