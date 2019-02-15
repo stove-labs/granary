@@ -1,13 +1,13 @@
 FROM maht0rz/tezos-environment-manager-sandbox-node:latest
 
 RUN apt-get update
-RUN git clone https://github.com/OCamlPro/liquidity 
-RUN cd liquidity && \
-    git checkout 1695a03ba98fb09261140cd4d19e63a15004cb2b
+RUN git clone https://github.com/OCamlPro/liquidity
 
 
 RUN apt-get install -y libcurl4-gnutls-dev && \
-    apt-get install -y libsodium-dev 
+    apt-get install -y libsodium-dev && \
+    apt-get install -y libffi6 && \
+    apt-get install -y libffi-dev
 
 
 RUN cd liquidity && \
@@ -28,6 +28,7 @@ RUN cd liquidity && \
 RUN cd liquidity && \
     export OPAMYES=true && \
     eval $(opam env) && \
+    opam install camlp4 ctypes-foreign ppx_deriving easy-format && \
     make && \
     make install
 

@@ -1,0 +1,8 @@
+parameter int;
+storage int;
+code { DUP ;
+       DIP { CDR @storage_slash_1 } ;
+       CAR @parameter_slash_2 ;
+       ADD ;
+       NIL operation ;
+       PAIR };

@@ -65,13 +65,6 @@ When  you start your `sandboxnet` node for the first time, make sure to initiali
 init-client
 ```
 
-#### Converting a ReasonML smart contract into Liquidity [Experimental 🚨] 
-> Liquidity smart contracts are implemented using a subset of OCaml syntax. We can use `refmt` to convert ReasonML code to OCaml code, 
-but not every valid ReasonML code is a valid Liquidity contract.
-```bash
-refmt --parse re --print ml tezos-environment-manager/src/contracts/simple.re > tezos-environment-manager/src/contracts/simple.liq
-```
-
 ### Client
 
 
@@ -96,7 +89,10 @@ tezos-client get balance for bootstrap2
 
 ### Contracts
 
-> `simple.re` example has to be converted into liquidity first, see above.
+You can find an example smart contract, in all three supported syntaxes: `.liq` `.reliq` `.tz`, under [`src/contracts/`](https://github.com/maht0rz/tezos-environment-manager/tree/master/src/contracts)
+
+> ⚠️ Prievously we've encouraged the use of `refmt` to convert `.re` files into `.liq` files, but liquidity now supports ReasonML syntax out of the box, you can learn more [here](https://github.com/lefessan/liquidity/blob/2a408f23efadcecf64274539d540a08c0ac9cb58/docs/sphinx/src/reference/liquidity.rst#reasonml-syntax).
+
 
 #### Simulating a smart contract execution
 ```bash
@@ -150,6 +146,20 @@ tezos-client get receipt for operation_hash_goes_here
 tezos-client show address  bootstrap1 -S
 ```
 
+#### Using ReasonML for Liquidity contracts
+
+Liquidity supports syntax of ReasonML in the form of `.reliq` files, instead of the traditional `.liq` files.
+
+If your file has a `.reliq` extension, it'll be automatically parsed as ReasonML.
+
+```bash
+liquidity \
+    --tezos-node $NODE_URL \
+    --amount 2tz \
+    tezos-environment-manager/src/contracts/simple.reliq \
+    --run main '5' '1'
+```
+
 ## 🔍 Block explorer 
 
 Once your local environment is up & running, you can 
@@ -177,7 +187,7 @@ npm install
 ```bash
 # Get current block/head
 npm run head
-# Get storage of a deployed smart contract (simple.re)
+# Get storage of a deployed smart contract
 # Make sure your contract is deployed and the example address is up-to-date
 npm run contract
 ```
