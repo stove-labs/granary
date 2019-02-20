@@ -1,4 +1,5 @@
-# Granary - The Tezos Environment Manager 🏖
+# Granary
+> Tezos Environment Manager 🏖
 
 #### This project is a WIP, contact [t.me/maht0rz](t.me/maht0rz) for any questions
 
