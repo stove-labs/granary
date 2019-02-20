@@ -1,5 +1,6 @@
-# Granary
-> Tezos Environment Manager 🏖
+# Granary 🌾
+
+Tezos environment manager & smart contract development toolkit
 
 #### This project is a WIP, contact [t.me/maht0rz](t.me/maht0rz) for any questions
 
