@@ -2,7 +2,7 @@
 
 Tezos environment manager & smart contract development toolkit
 
-#### This project is a WIP, contact [t.me/maht0rz](t.me/maht0rz) for any questions
+#### This project is a WIP, contact [https://t.me/maht0rz](t.me/maht0rz) for any questions
 
 Tezos environment manager provides a seamless way to **develop smart contracts and dapps locally** for public networks such as `alphanet`, and private networks such as `sandboxnet` 
 
