@@ -30,6 +30,7 @@ jobs:
             npm version prerelease --preid=next -m "Bumped version number to %s [ci skip]"
             git config --global user.email $CIRCLE_USERNAME
             git config --global user.name $CIRCLE_USERNAME
+            echo "machine github.com login maht0rz password $GITHUB_TOKEN" > ~/.netrc
             git push origin feature/cli
             git push --tags
       - run:
@@ -57,7 +58,10 @@ workflows:
     jobs:
       - contributors-build-image
       - test
-      - deploy-npm-package
+      - deploy-npm-package:
+          requires: 
+            - contributors-build-image
+            - test
       - deploy-website:
           requires: 
             - contributors-build-image
