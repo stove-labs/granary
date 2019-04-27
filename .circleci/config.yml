@@ -27,11 +27,10 @@ jobs:
 
 workflows:
   version: 2
-  test_contributors_environment:
+  default:
     jobs:
       - contributors-build-image
       - contributors-build-website
-  deploy_website:
-    jobs:
       - deploy-website
+    
 
