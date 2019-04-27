@@ -3,3 +3,6 @@ contributors-build-image:
 
 contributors-push-image:
 	docker push stovelabs/granary-contributors
+
+contributors-test:
+	./__tests__/cli.sh

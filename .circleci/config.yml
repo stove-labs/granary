@@ -4,7 +4,17 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: make contributors-build-image 
+      - run: make contributors-build-image
+
+  test:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: CLI tests
+          command: |
+            contributors-test
+
 
   deploy-website:
     docker:

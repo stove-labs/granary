@@ -1,0 +1,23 @@
+{
+  "name": "@stove-labs/granary",
+  "version": "0.1.0",
+  "description": "All-in toolkit for Tezos development",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stove-labs/granary.git"
+  },
+  "keywords": [
+    "tezos",
+    "smart-contracts"
+  ],
+  "author": "matej.sima@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stove-labs/granary/issues"
+  },
+  "homepage": "https://github.com/stove-labs/granary#readme",
+  "bin": {
+    "granary": "./index.js"
+  }
+}
