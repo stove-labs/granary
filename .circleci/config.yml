@@ -5,16 +5,10 @@ jobs:
     steps:
       - checkout
       - run: make contributors-build-image 
-  
-  contributors-build-website:
-    machine: true
-    steps:
-      - checkout
-      - run: make contributors-build-website
 
   deploy-website:
     docker:
-      - image: circleci/node:8.11.1
+      - image: stovelabs/granary-contributors
     steps:
       - checkout
       - run:
@@ -23,14 +17,17 @@ jobs:
             git config --global user.email "matej.sima@gmail.com"
             git config --global user.name "Matej Sima"
             echo "machine github.com login maht0rz password $GITHUB_TOKEN" > ~/.netrc
-            cd website && yarn install && GIT_USER=maht0rz yarn run publish-gh-pages
+            cd website && GIT_USER=maht0rz yarn run publish-gh-pages
 
 workflows:
   version: 2
   default:
     jobs:
       - contributors-build-image
-      - contributors-build-website
+        requires: 
+          - contributors-build-image
       - deploy-website
+        requires: 
+          - contributors-build-image
     
 
