@@ -17,7 +17,7 @@ jobs:
             git config --global user.email "matej.sima@gmail.com"
             git config --global user.name "Matej Sima"
             echo "machine github.com login maht0rz password $GITHUB_TOKEN" > ~/.netrc
-            cd website && GIT_USER=maht0rz yarn run publish-gh-pages
+            cd website && yarn install && GIT_USER=maht0rz yarn run publish-gh-pages
 
 workflows:
   version: 2
