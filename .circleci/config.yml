@@ -1,8 +1,5 @@
 version: 2
 
-defaults:
-  working_directory: ~/repo
-
 jobs:
   contributors-build-image:
     machine: true
@@ -26,7 +23,7 @@ jobs:
       - checkout
       - run:
           name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run:
           name: Bump version
           command: |
