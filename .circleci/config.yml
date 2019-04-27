@@ -21,6 +21,9 @@ jobs:
     machine: true
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "64:a8:da:d6:2a:9a:ea:85:9e:4c:e3:22:c8:bd:36:1f"
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
@@ -30,8 +33,6 @@ jobs:
           command: |
             git config --global user.email "matej.sima@gmail.com"
             git config --global user.name "maht0rz"
-            echo "machine github.com login maht0rz password $GITHUB_TOKEN" > ~/.netrc
-            git remote set-url origin https://github.com/stove-labs/granary.git
             npm version prerelease --preid=next -m "Bumped version number to %s [skip ci]"
             git push origin feature/cli --tags
       - run:
