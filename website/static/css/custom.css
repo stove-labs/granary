@@ -1,0 +1,67 @@
+/* your custom css */
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+
+}
+
+@media only screen and (min-width: 1024px) {
+    .homeContainer .homeWrapper {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+
+
+.homeContainer .homeWrapper {
+    /* text-align: left; */
+    color: white;
+}
+
+.homeContainer {
+    background:#f6f4f4;
+    box-shadow: inset  0 -10px 10px -10px rgba(189, 189, 189, 0.2);
+}
+
+.nav-footer {
+    box-shadow: inset  0  10px 10px -10px rgba(0,0,0,0.5);
+}
+
+.projectTitle {
+    color: #24292e;
+}
+
+.promoSection .promoRow .pluginRowBlock {
+    /* justify-content: left; */
+}
+
+.promoSection .pluginWrapper:first-child a {
+    background: #F0D038;
+    color: white;
+}
+
+.productShowcaseSection {
+    background: #20232a;
+    color: white;
+}
+
+.productShowcaseSection > h2 {
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin: 0px;
+}
+
+.productShowcaseSection > .logos {
+    background: white;
+    position: relative;
+    width: calc(100% + 40px);
+    left: -20px;
+}

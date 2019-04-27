@@ -1,0 +1,6 @@
+version: 2
+jobs:
+  build:
+    steps:
+      - checkout
+      - run: make contributors-build-image 
