@@ -5,6 +5,7 @@ jobs:
     steps:
       - checkout
       - run: make contributors-build-image 
+  
   contributors-build-website:
     machine: true
     steps:
@@ -13,15 +14,24 @@ jobs:
 
   deploy-website:
     docker:
-      # specify the version you desire here
       - image: circleci/node:8.11.1
-
     steps:
       - checkout
       - run:
           name: Deploying to GitHub Pages
           command: |
-            git config --global user.email "maht0rz@users.noreply.github.com"
-            git config --global user.name "Matej Sima"
-            echo "machine github.com login maht0rz password $GITHUB_TOKEN" > ~/.netrc
-            cd website && yarn install && GIT_USER=maht0rz yarn run publish-gh-pages
+            git config --global user.email "<GITHUB_USERNAME>@users.noreply.github.com"
+            git config --global user.name "<YOUR_NAME>"
+            echo "machine github.com login <GITHUB_USERNAME> password $GITHUB_TOKEN" > ~/.netrc
+            cd website && yarn install && GIT_USER=<GIT_USER> yarn run publish-gh-pages
+
+workflows:
+  version: 2
+  contributors:
+    jobs:
+      - contributors-build-image
+      - contributors-build-website
+  deploy-website:
+    jobs:
+      - deploy-website
+
