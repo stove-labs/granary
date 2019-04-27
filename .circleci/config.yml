@@ -23,10 +23,10 @@ workflows:
   version: 2
   default:
     jobs:
-      - contributors-build-image
+      - contributors-build-image:
         requires: 
           - contributors-build-image
-      - deploy-website
+      - deploy-website:
         requires: 
           - contributors-build-image
     
