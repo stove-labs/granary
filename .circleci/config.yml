@@ -27,9 +27,11 @@ jobs:
 
 workflows:
   version: 2
-  contributors:
-    build:
+  test_contributors_environment:
+    jobs:
       - contributors-build-image
       - contributors-build-website
+  deploy_website:
+    jobs:
       - deploy-website
 
