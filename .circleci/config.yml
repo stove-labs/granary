@@ -33,12 +33,12 @@ jobs:
           command: |
             git config --global user.email "matej.sima@gmail.com"
             git config --global user.name "maht0rz"
-            npm version prerelease --preid=next -m "Bumped version number to %s [skip ci]"
+            npm version prerelease --preid "pre-alpha" -m "Bumped pre-alpha version number to %s [skip ci]"
             git push origin feature/cli --tags
       - run:
           name: Publish package
           # @TODO: tag packages with branch names (?)
-          command: npm publish --tag next
+          command: npm publish --tag "pre-alpha"
 
 
   deploy-website:
