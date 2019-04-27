@@ -26,11 +26,12 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run:
           name: Bump version
+          # @TODO: It'd be ideal to have a separate user create releases
           command: |
             git config --global user.email "matej.sima@gmail.com"
             git config --global user.name "maht0rz"
             echo "machine github.com login maht0rz password $GITHUB_TOKEN" > ~/.netrc
-            GIT_USER=maht0rz
+            git remote set-url origin https://github.com/stove-labs/granary.git
             npm version prerelease --preid=next -m "Bumped version number to %s [skip ci]"
             git push origin feature/cli --tags
       - run:
