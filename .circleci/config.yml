@@ -7,6 +7,7 @@ jobs:
       - run: make contributors-build-image
 
   test:
+    # @TODO: run tests in a predefined environment, e.g. node 11
     machine: true
     steps:
       - checkout
@@ -34,8 +35,10 @@ workflows:
   default:
     jobs:
       - contributors-build-image
+      - test
       - deploy-website:
           requires: 
             - contributors-build-image
+            - test
     
 
