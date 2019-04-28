@@ -8,7 +8,7 @@
         <img src="https://img.shields.io/github/license/stove-labs/granary.svg"/>
     </a>
     <a href="https://www.npmjs.com/package/@stove-labs/granary">
-        <img src="https://img.shields.io/npm/v/@stove-labs/granary/pre-alpha.svg" />
+        <img src="https://img.shields.io/npm/v/@stove-labs/granary/pre-alpha.svg?label=%40stove-labs%2Fgranary" />
     </a>
 </div>
 <div float="left">
