@@ -17,50 +17,170 @@
 @media only screen and (min-width: 1400px) {
 }
 
-@media only screen and (min-width: 1500px) {
-    .homeContainer .homeWrapper {
-        /* text-align: left; */
-        color: white;
-    }
+.homeContainer .homeWrapper {
+    color: white;
+}
 
-    .homeContainer {
-        background:#f6f4f4;
-        box-shadow: inset  0 -10px 10px -10px rgba(189, 189, 189, 0.2);
-    }
 
-    .nav-footer {
-        box-shadow: inset  0  10px 10px -10px rgba(0,0,0,0.5);
-    }
+.logo {
+    position: relative;
+    display: inline-block;
+}
 
-    .projectTitle {
-        color: #24292e;
-    }
+.logo:before {
+    background: red;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    content: " ";
+    bottom: 0;
+    left: 0;
+}
 
-    .promoSection .promoRow .pluginRowBlock {
-        /* justify-content: left; */
-    }
+.homeWrapper {
+    position: relative;
+}
 
-    .promoSection .pluginWrapper:first-child a {
-        background: #F0D038;
-        color: white;
-    }
+.homeWrapper:before {
+    background: red;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    content: " ";
+    bottom: 25%;
+    left: 38%;
+    background: url('../img/grain.png');
+    background-position: center center;
+    background-size: cover;
+    opacity: 0.05;
+}
 
-    .productShowcaseSection {
-        background: #20232a;
-        color: white;
-    }
+.homeContainer {
+    background:#F0EDED;
+    box-shadow: inset  0 -10px 10px -10px rgba(189, 189, 189, 0.2);
+}
 
-    .productShowcaseSection > h2 {
-        color: white;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        margin: 0px;
-    }
+.nav-footer {
+    box-shadow: inset  0  10px 10px -10px rgba(0,0,0,0.5);
+}
 
-    .productShowcaseSection > .logos {
-        background: white;
-        position: relative;
-        width: calc(100% + 40px);
-        left: -20px;
-    }
+.projectTitle {
+    color: #24292e;
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.projectTitleWrapper {
+    position: relative;
+}
+
+.projectTitle img {
+    height: 50px;
+}
+
+.promoSection .pluginWrapper:first-child a {
+    background: #F0C926;
+    color: white;
+}
+
+.productShowcaseSection {
+    background: #20232a;
+    color: white;
+}
+
+.productShowcaseSection > h2 {
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin: 0px;
+}
+
+.productShowcaseSection > .logos {
+    background: white;
+    position: relative;
+    width: calc(100% + 40px);
+    left: -20px;
+}
+
+.navigationSlider .slidingNav ul li a {
+    color: white;
+    font-weight: 600;
+}
+
+.fixedHeaderContainer header .headerTitleWithLogo {
+    font-size: 20px;
+}
+
+.window-container {
+  width: 700px;
+  height: 340px;
+  border: 1px solid #bbb;
+  border-radius: 7px;
+  box-shadow: 0 0px 50px 0px rgba(0, 0, 0, 0.46);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  color: #F0EDED;
+}
+
+.window-container span {
+    color: rgba(255, 255, 255, 0.3);
+    padding-right: 10px;
+}
+
+.window-container span.comment {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 15px;
+}
+
+.window-controls {
+  display: flex;
+  padding: 5px;
+  background: linear-gradient(rgb(226, 224, 226), rgb(199, 198, 200));
+}
+
+.window-controls-btn {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.close-btn {
+  background: rgb(227, 69, 69);
+}
+
+.minimize-btn {
+  background: rgb(224, 178, 40);
+}
+
+.expand-btn {
+  background: rgb(0, 216, 67);
+}
+
+.window-content {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 95%;
+  background: rgba(50, 50, 50, 0.95);
+  overflow-y: scroll;
+  text-align: left;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.window-content span {
+    display: inline;
+}
+
+.line {
+  color: #fff;
+  margin: 0;
+  padding: 3px 5px;
 }

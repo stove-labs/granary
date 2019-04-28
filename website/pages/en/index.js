@@ -30,10 +30,33 @@ class HomeSplash extends React.Component {
     );
 
     const ProjectTitle = () => (
-      <h2 className="projectTitle">
+      <div>
+        <h2 className="projectTitle">
         {siteConfig.title}
         <small>{siteConfig.tagline}</small>
       </h2>
+
+      <div class="window-container is-visible animated pulse delay-1s">
+        <div class="window-controls">
+          <button class="window-controls-btn close-btn"></button>
+          <button class="window-controls-btn minimize-btn"></button>
+          <button class="window-controls-btn expand-btn"></button>
+        </div>
+        <div class="window-content">
+          <div><span className="comment">// Setup</span> </div>
+          <div><span>npx @stove-labs/granary</span> config set network sandboxnet</div>
+          <div><span>npx @stove-labs/granary</span> node start</div>
+          <div><span>npx @stove-labs/granary</span> client - import secret key alice edsk...</div>
+          <div> <br/> </div>
+          <div><span className="comment">// Compile</span> </div>
+          <div><span>npx @stove-labs/granary</span> contract compile src/contracts/counter.reliq</div>
+          <div> <br/> </div>
+          <div><span className="comment">// Deploy</span> </div>
+          <div><span>npx @stove-labs/granary</span> client - tezos-client originate contract counter for alice transferring 0 from alice
+                  running src/contracts/counter.tz --init '0' --burn-cap 0.4</div>
+        </div>
+      </div>
+      </div>
     );
 
     const PromoSection = props => (
@@ -58,7 +81,9 @@ class HomeSplash extends React.Component {
           <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
             <Button href={docUrl('getting-started-what-and-why.html')}>Getting started</Button>
-            <Button href={docUrl('tutorials.html')}>Guides</Button>
+            <Button href={docUrl('examples.html')}>More examples</Button>
+            <Button href={docUrl('tutorials.html')}>Tutorials</Button>
+
           </PromoSection>
         </div>
       </SplashContainer>
