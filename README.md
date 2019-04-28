@@ -13,13 +13,13 @@
 </div>
 <div float="left">
     <a href="https://stove-labs.github.io/granary/">
-        <img src="https://img.shields.io/badge/Docs-easy--to--read-brightgreen.svg" />
+        <img src="https://img.shields.io/badge/docs-easy--to--read-brightgreen.svg" />
     </a>
     <a href="https://stove-labs.github.io/granary/docs/tutorials.html">
-        <img src="https://img.shields.io/badge/Tutorials-comprehensive-brightgreen.svg" />
+        <img src="https://img.shields.io/badge/tutorials-comprehensive-brightgreen.svg" />
     </a>
     <a href="https://t.me/stove_labs">
-        <img src="https://img.shields.io/badge/Community-blue.svg?logo=telegram" />
+        <img src="https://img.shields.io/badge/community-blue.svg?logo=telegram" />
     </a>
 </div>
 <br/>
