@@ -8,7 +8,7 @@
         <img src="https://img.shields.io/github/license/stove-labs/granary.svg"/>
     </a>
     <a href="https://www.npmjs.com/package/@stove-labs/granary">
-        <img src="https://img.shields.io/npm/v/@stove-labs/granary/latest.svg?label=%40stove-labs%2Fgranary" />
+        <img src="https://img.shields.io/npm/v/@stove-labs/granary/pre-alpha.svg" />
     </a>
 </div>
 <div float="left">
@@ -25,6 +25,10 @@
 <br/>
 
 All-in Tezos development environment for DAPPs, Smart Contracts and more.
+
+### 👉 Getting started
+
+Please reffer to the [docs](https://stove-labs.github.io/granary/) for a detailed getting started guide.
 
 ### Sponsors & Contributors
 
