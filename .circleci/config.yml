@@ -1,9 +1,9 @@
 version: 2
 
 branch-develop-only: &branch-develop-only
-  branches:
-    only:
-      - develop
+  filters:
+    branches:
+      only: develop
 
 jobs:
   contributors-build-image:
@@ -62,18 +62,16 @@ jobs:
 workflows:
   version: 2
   default:
-    triggers:
-      - schedule:
-          filters:
-            <<: *branch-develop-only
     jobs:
       - contributors-build-image
       - test
       - deploy-npm-package:
+          <<: *branch-develop-only
           requires: 
             - contributors-build-image
             - test
       - deploy-website:
+          <<: *branch-develop-only
           requires: 
             - contributors-build-image
             - test
