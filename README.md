@@ -2,9 +2,9 @@
 
 <div float="left">
     <a href="https://circleci.com/gh/stove-labs/granary/tree/feature%2Fcli">
-        <img src="https://img.shields.io/circleci/project/github/stove-labs/granary/feature/cli.svg"/>
+        <img src="https://img.shields.io/circleci/project/github/stove-labs/granary/develop.svg"/>
     </a>
-    <a href="https://github.com/stove-labs/granary/blob/feature/cli/LICENSE">
+    <a href="https://github.com/stove-labs/granary/blob/develop/LICENSE">
         <img src="https://img.shields.io/github/license/stove-labs/granary.svg"/>
     </a>
     <a href="https://www.npmjs.com/package/@stove-labs/granary">
