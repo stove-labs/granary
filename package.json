@@ -1,6 +1,6 @@
 {
   "name": "@stove-labs/granary",
-  "version": "1.0.0-pre-alpha.9",
+  "version": "1.0.0-pre-alpha.10",
   "description": "All-in toolkit for Tezos development",
   "main": "index.js",
   "repository": {
