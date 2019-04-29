@@ -1,5 +1,10 @@
 version: 2
 
+branch-develop-only: &defaults
+  branches:
+    only:
+      - develop
+
 jobs:
   contributors-build-image:
     machine: true
@@ -18,6 +23,7 @@ jobs:
             make contributors-test
 
   deploy-npm-package:
+    <<: *branch-develop-only
     machine: true
     steps:
       - checkout
@@ -42,6 +48,7 @@ jobs:
 
 
   deploy-website:
+    <<: *branch-develop-only
     docker:
       - image: stovelabs/granary-contributors
     steps:
