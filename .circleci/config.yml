@@ -23,7 +23,6 @@ jobs:
             make contributors-test
 
   deploy-npm-package:
-    <<: *branch-develop-only
     machine: true
     steps:
       - checkout
@@ -48,7 +47,6 @@ jobs:
 
 
   deploy-website:
-    <<: *branch-develop-only
     docker:
       - image: stovelabs/granary-contributors
     steps:
@@ -64,6 +62,10 @@ jobs:
 workflows:
   version: 2
   default:
+    triggers:
+      - schedule:
+          filters:
+            <<: *branch-develop-only
     jobs:
       - contributors-build-image
       - test
