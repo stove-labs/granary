@@ -36,13 +36,13 @@ class HomeSplash extends React.Component {
         <small>{siteConfig.tagline}</small>
       </h2>
 
-      <div class="window-container is-visible animated pulse delay-1s">
-        <div class="window-controls">
-          <button class="window-controls-btn close-btn"></button>
-          <button class="window-controls-btn minimize-btn"></button>
-          <button class="window-controls-btn expand-btn"></button>
+      <div className="window-container is-visible animated pulse delay-1s">
+        <div className="window-controls">
+          <button className="window-controls-btn close-btn"></button>
+          <button className="window-controls-btn minimize-btn"></button>
+          <button className="window-controls-btn expand-btn"></button>
         </div>
-        <div class="window-content">
+        <div className="window-content">
           <div><span className="comment">// Setup</span> </div>
           <div><span>npx @stove-labs/granary</span> config set network sandboxnet</div>
           <div><span>npx @stove-labs/granary</span> node start</div>

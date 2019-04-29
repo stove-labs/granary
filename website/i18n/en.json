@@ -11,6 +11,12 @@
       "api-config": {
         "title": "Config (granary.json)"
       },
+      "contributors-development-environment": {
+        "title": "Development environment"
+      },
+      "contributors-updating-the-docs": {
+        "title": "Updating the docs"
+      },
       "getting-started-install": {
         "title": "Installation"
       },
@@ -24,7 +30,8 @@
     },
     "categories": {
       "Getting started": "Getting started",
-      "API": "API"
+      "API": "API",
+      "Contributing": "Contributing"
     }
   },
   "pages-strings": {

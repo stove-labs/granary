@@ -4,5 +4,12 @@ contributors-build-image:
 contributors-push-image:
 	docker push stovelabs/granary-contributors
 
+contributors-shell:
+	docker run -it -p 3000:3000 -p 35729:35729 -v $(PWD):$(PWD) -w $(PWD) stovelabs/granary-contributors /bin/bash
+
+contributors-shell-no-ports:
+	docker run -it -v $(PWD):$(PWD) -w $(PWD) stovelabs/granary-contributors /bin/bash
+
+
 contributors-test:
 	./__tests__/cli.sh

@@ -1,7 +1,8 @@
 {
   "docs": {
     "Getting started": ["getting-started-what-and-why", "getting-started-install"],
-    "API": ["api-cli-commands", "api-config"]
+    "API": ["api-cli-commands", "api-config"],
+    "Contributing": ["contributors-development-environment", "contributors-updating-the-docs"]
   }
 }
 

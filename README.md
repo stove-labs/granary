@@ -28,9 +28,13 @@ All-in Tezos development environment for DAPPs, Smart Contracts and more.
 
 ### 👉 Getting started
 
-Please reffer to the [docs](https://stove-labs.github.io/granary/) for a detailed getting started guide.
+Please refer to the [docs](https://stove-labs.github.io/granary/) for a detailed getting started guide.
 
-### Sponsors & Contributors
+### 🛠 Contributing
+
+Please refer to the [contributor docs](https://stove-labs.github.io/granary/).
+
+### 💸 Sponsors & Contributors
 
 <div float="left">
   <img src="https://stove-labs.com/logo_transparent.png" width="90" />

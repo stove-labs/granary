@@ -1,2 +1,5 @@
 website/node_modules
 website/build
+node_modules
+lib
+.merlin

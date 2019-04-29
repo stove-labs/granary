@@ -11,6 +11,10 @@
     "tezos",
     "smart-contracts"
   ],
+  "scripts": {
+    "start": "bsb -w",
+    "shell": "make contributors-shell"
+  },
   "author": "matej.sima@gmail.com",
   "license": "MIT",
   "bugs": {
