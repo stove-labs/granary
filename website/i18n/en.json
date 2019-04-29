@@ -14,6 +14,9 @@
       "contributors-development-environment": {
         "title": "Development environment"
       },
+      "contributors-examples": {
+        "title": "Examples on how to contribute to Granary"
+      },
       "contributors-updating-the-docs": {
         "title": "Updating the docs"
       },
