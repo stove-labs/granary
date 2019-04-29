@@ -1,6 +1,6 @@
 version: 2
 
-branch-develop-only: &defaults
+branch-develop-only: &branch-develop-only
   branches:
     only:
       - develop
