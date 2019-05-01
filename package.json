@@ -12,8 +12,10 @@
     "smart-contracts"
   ],
   "scripts": {
-    "start": "bsb -w",
-    "shell": "make contributors-shell"
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "init": "bsb -init . -theme basic-reason"
   },
   "author": "matej.sima@gmail.com",
   "license": "MIT",
@@ -22,6 +24,10 @@
   },
   "homepage": "https://github.com/stove-labs/granary#readme",
   "bin": {
-    "granary": "./index.js"
+    "granary": "./granary.js"
+  },
+  "dependencies": {
+    "bs-platform": "^5.0.4",
+    "commander": "^2.20.0"
   }
 }

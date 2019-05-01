@@ -3,3 +3,5 @@ website/build
 node_modules
 lib
 .merlin
+**/*.bs.js
+.bsb.lock

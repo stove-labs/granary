@@ -1,0 +1,2 @@
+Cli.register();
+Cli.parse();
