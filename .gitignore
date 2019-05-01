@@ -5,3 +5,5 @@ lib
 .merlin
 **/*.bs.js
 .bsb.lock
+granary.json
+granary-test.json

@@ -43,17 +43,17 @@ class HomeSplash extends React.Component {
           <button className="window-controls-btn expand-btn"></button>
         </div>
         <div className="window-content">
-          <div><span className="comment">// Setup</span> </div>
-          <div><span>npx @stove-labs/granary</span> config set network sandboxnet</div>
-          <div><span>npx @stove-labs/granary</span> node start</div>
-          <div><span>npx @stove-labs/granary</span> client - import secret key alice edsk...</div>
-          <div> <br/> </div>
-          <div><span className="comment">// Compile</span> </div>
-          <div><span>npx @stove-labs/granary</span> contract compile src/contracts/counter.reliq</div>
-          <div> <br/> </div>
-          <div><span className="comment">// Deploy</span> </div>
-          <div><span>npx @stove-labs/granary</span> client - tezos-client originate contract counter for alice transferring 0 from alice
-                  running src/contracts/counter.tz --init '0' --burn-cap 0.4</div>
+          <div><span className="comment"># Setup your development environment</span> </div>
+          <div><span>npm  </span>  install -g @stove-labs/granary@pre-alpha</div>
+          <div><span>granary</span>node start</div>
+          <div><span className="comment"># Compile your contract to Michelson</span> </div>
+          <div><span>granary</span>contract compile src/contracts/counter.reliq</div>
+          <div><span className="comment"># Deploy and use your contract</span> </div>
+          <div><span>granary</span>client - import secret key alice edsk...</div>
+          <div><span>granary</span>client - originate contract counter for alice transferring 0 from alice running src/contracts/counter.tz --init '0'</div>
+          <div><span className="comment"># See your contract in a local block explorer (e.g. http://localhost:8080)</span> </div>
+          <div><span>granary</span>explorer start</div>
+
         </div>
       </div>
       </div>
@@ -81,8 +81,7 @@ class HomeSplash extends React.Component {
           <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
             <Button href={docUrl('getting-started-what-and-why.html')}>Getting started</Button>
-            <Button href={docUrl('examples.html')}>More examples</Button>
-            <Button href={docUrl('tutorials.html')}>Tutorials</Button>
+            <Button href={docUrl('contributors-examples.html')}>Contributing</Button>
 
           </PromoSection>
         </div>

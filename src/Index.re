@@ -1,2 +1,1 @@
-Cli.register();
-Cli.parse();
+Cli.start();
