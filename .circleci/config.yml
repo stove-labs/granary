@@ -38,10 +38,13 @@ jobs:
           command: |
             npm run build
       - save_cache:
-          key: build-{{ .Revision }}
+          key: build-{{ .BuildNum }}-{{ .Revision }}
           paths:
+            # All the folders that were affected by `npm run build`
+            # must be cached for the upcoming jobs
             - "src"
             - "node_modules"
+            - "__tests__"
 
   test:
     docker:
@@ -50,7 +53,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - build-{{ .Revision }}
+            - build-{{ .BuildNum }}-{{ .Revision }}
       - run:
           name: CLI tests
           command: |
@@ -63,7 +66,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - build-{{ .Revision }}
+            - build-{{ .BuildNum }}-{{ .Revision }}
       - add_ssh_keys:
           fingerprints:
             - "64:a8:da:d6:2a:9a:ea:85:9e:4c:e3:22:c8:bd:36:1f"
