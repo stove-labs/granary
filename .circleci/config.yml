@@ -5,6 +5,10 @@ branch-develop-only: &branch-develop-only
     branches:
       only: develop
 
+restore-dependencies-cache: &restore-dependencies-cache
+  - restore_cache:
+      keys: npm-deps-{{ checksum "package-lock.json" }}
+
 jobs:
   contributors-build-image:
     machine: true
@@ -12,15 +16,25 @@ jobs:
       - checkout
       - run: make contributors-build-image
 
-  build:
+  install-dependencies:
     docker:
       - image: stovelabs/granary-contributors
     steps:
       - checkout
       - run:
-          name: Install dependencies
           command: |
             npm i
+      - save_cache:
+          key: npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - "node_modules"
+
+  build:
+    docker:
+      - image: stovelabs/granary-contributors
+    steps:
+      - checkout
+      <<: *restore-dependencies-cache
       - run:
           name: Build
           command: |
@@ -31,6 +45,7 @@ jobs:
     machine: true
     steps:
       - checkout
+      <<: *restore-dependencies-cache
       - run:
           name: CLI tests
           command: |
@@ -40,6 +55,7 @@ jobs:
     machine: true
     steps:
       - checkout
+      <<: *restore-dependencies-cache
       - add_ssh_keys:
           fingerprints:
             - "64:a8:da:d6:2a:9a:ea:85:9e:4c:e3:22:c8:bd:36:1f"
@@ -78,11 +94,15 @@ workflows:
   default:
     jobs:
       - contributors-build-image
-      - build
+      - install-dependencies:
+          requires:
+            - contributors-build-image
+      - build:
+          requires:
+            - install-dependencies
       - test:
           requires:
             - build
-            - contributors-build-image
       - deploy-npm-package:
           <<: *branch-develop-only
           requires: 
