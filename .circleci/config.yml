@@ -37,27 +37,33 @@ jobs:
           name: Build
           command: |
             npm run build
+      - save_cache:
+          key: build-{{ checksum "src" }}-{{ checksum "node_modules" }}
+          paths:
+            - "src"
+            - "node_modules"
 
   test:
-    # @TODO: run tests in a predefined environment, e.g. node 11
-    machine: true
+    docker:
+      - image: stovelabs/granary-contributors
     steps:
       - checkout
       - restore_cache:
           keys: 
-            - npm-deps-{{ checksum "package-lock.json" }}
+            - build-{{ checksum "src" }}-{{ checksum "node_modules" }}
       - run:
           name: CLI tests
           command: |
             npm run test
 
   deploy-npm-package:
-    machine: true
+    docker:
+      - image: stovelabs/granary-contributors
     steps:
       - checkout
       - restore_cache:
           keys: 
-            - npm-deps-{{ checksum "package-lock.json" }}
+            - build-{{ checksum "src" }}-{{ checksum "node_modules" }}
       - add_ssh_keys:
           fingerprints:
             - "64:a8:da:d6:2a:9a:ea:85:9e:4c:e3:22:c8:bd:36:1f"
