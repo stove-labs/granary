@@ -117,6 +117,8 @@
   display: flex;
   padding: 5px;
   background: linear-gradient(rgb(226, 224, 226), rgb(199, 198, 200));
+  min-height: 21px;
+  height: 21px;
 }
 
 .window-controls-btn {
@@ -162,6 +164,27 @@
   color: #fff;
   margin: 0;
   padding: 3px 5px;
+}
+
+.headerTitleWithLogo:after {
+    content: 'pre-alpha';
+    opacity: 0.9;
+    color: rgba(255, 255, 255, 0.9);
+    background: #B354AB;
+    padding: 5px 8px 6px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    position: relative;
+    left: 10px;
+    top: -1px;
+}
+
+.headerTitleWithLogo {
+    display: block !important;
+}
+
+.tocToggler {
+    display: none;
 }
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {

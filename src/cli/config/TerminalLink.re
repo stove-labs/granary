@@ -1,0 +1,1 @@
+[@bs.module] external terminalLink: (string, string) => string = "terminal-link";

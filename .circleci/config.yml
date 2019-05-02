@@ -12,20 +12,65 @@ jobs:
       - checkout
       - run: make contributors-build-image
 
-  test:
-    # @TODO: run tests in a predefined environment, e.g. node 11
-    machine: true
+  install-dependencies:
+    docker:
+      - image: stovelabs/granary-contributors
     steps:
       - checkout
       - run:
-          name: CLI tests
           command: |
-            make contributors-test
+            npm i
+      - save_cache:
+          # separate cache for dependencies, as they dont
+          # have to change with each new commit/revision
+          key: dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - "node_modules"
 
-  deploy-npm-package:
-    machine: true
+  build:
+    docker:
+      - image: stovelabs/granary-contributors
     steps:
       - checkout
+      - restore_cache:
+          keys: 
+            - dependencies-{{ checksum "package-lock.json" }}
+      - run:
+          name: Build
+          command: |
+            npm run build
+      - save_cache:
+          # All the folders that were affected by `npm run build`
+          # must be cached for the upcoming jobs
+          # Cache per commit/revision should be OK, because our
+          # build has no side effects / external dependencies
+          key: build-{{ .Revision }}
+          paths:
+            - "src"
+            - "node_modules"
+            - "__tests__"
+
+  test:
+    docker:
+      - image: stovelabs/granary-contributors
+    steps:
+      - checkout
+      - restore_cache:
+          keys: 
+            - build-{{ .Revision }}
+      - run:
+          name: CLI tests
+          command: |
+            npm run test
+
+  deploy-npm-package:
+    docker:
+      - image: stovelabs/granary-contributors
+    steps:
+      - checkout
+      - restore_cache:
+          keys: 
+            - build-{{ .Revision }}
       - add_ssh_keys:
           fingerprints:
             - "64:a8:da:d6:2a:9a:ea:85:9e:4c:e3:22:c8:bd:36:1f"
@@ -64,16 +109,22 @@ workflows:
   default:
     jobs:
       - contributors-build-image
-      - test
+      - install-dependencies:
+          requires:
+            - contributors-build-image
+      - build:
+          requires:
+            - install-dependencies
+      - test:
+          requires:
+            - build
       - deploy-npm-package:
           <<: *branch-develop-only
           requires: 
-            - contributors-build-image
             - test
       - deploy-website:
           <<: *branch-develop-only
           requires: 
-            - contributors-build-image
             - test
     
 

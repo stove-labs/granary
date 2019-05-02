@@ -3,3 +3,7 @@ website/build
 node_modules
 lib
 .merlin
+**/*.bs.js
+.bsb.lock
+granary.json
+granary-test.json
