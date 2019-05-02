@@ -22,3 +22,33 @@ Granary CI setup & dev setup uses the same docker image for consistency purposes
 ```shell
 make contributors-build-image
 ```
+
+## Useful commands
+
+#### Build the CLI
+
+```shell
+npm run build
+```
+
+```shell
+npm run build:watch
+```
+
+#### Run tests
+```shell
+npm run test
+```
+
+```shell
+npm run test:watch
+```
+
+#### Link the CLI executable for development
+
+> ⚠️ Run this outside of the docker container, on your own machine. Might require sudo permissions for linking.
+
+```shell
+npm link 
+granary --version
+```

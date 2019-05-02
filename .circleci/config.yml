@@ -18,8 +18,8 @@ jobs:
     steps:
       - checkout
       - run:
-        command: |
-          npm run build
+          command: |
+            npm run build
 
   test:
     # @TODO: run tests in a predefined environment, e.g. node 11
