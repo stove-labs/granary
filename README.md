@@ -1,7 +1,7 @@
 # Granary
 
 <div float="left">
-    <a href="https://circleci.com/gh/stove-labs/granary/tree/feature%2Fcli">
+    <a href="https://circleci.com/gh/stove-labs/granary/tree/develop">
         <img src="https://img.shields.io/circleci/project/github/stove-labs/granary/develop.svg"/>
     </a>
     <a href="https://github.com/stove-labs/granary/blob/develop/LICENSE">
