@@ -21,7 +21,9 @@ jobs:
           command: |
             npm i
       - save_cache:
-          key: npm-deps-{{ checksum "package-lock.json" }}
+          # separate cache for dependencies, as they dont
+          # have to change with each new commit/revision
+          key: dependencies-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
 
@@ -32,16 +34,18 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - npm-deps-{{ checksum "package-lock.json" }}
+            - dependencies-{{ checksum "package-lock.json" }}
       - run:
           name: Build
           command: |
             npm run build
       - save_cache:
-          key: build-{{ .BuildNum }}-{{ .Revision }}
+          # All the folders that were affected by `npm run build`
+          # must be cached for the upcoming jobs
+          # Cache per commit/revision should be OK, because our
+          # build has no side effects / external dependencies
+          key: build-{{ .Revision }}
           paths:
-            # All the folders that were affected by `npm run build`
-            # must be cached for the upcoming jobs
             - "src"
             - "node_modules"
             - "__tests__"
@@ -53,7 +57,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - build-{{ .BuildNum }}-{{ .Revision }}
+            - build-{{ .Revision }}
       - run:
           name: CLI tests
           command: |
@@ -66,7 +70,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - build-{{ .BuildNum }}-{{ .Revision }}
+            - build-{{ .Revision }}
       - add_ssh_keys:
           fingerprints:
             - "64:a8:da:d6:2a:9a:ea:85:9e:4c:e3:22:c8:bd:36:1f"
