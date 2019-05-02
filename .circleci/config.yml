@@ -38,7 +38,7 @@ jobs:
           command: |
             npm run build
       - save_cache:
-          key: build-{{ checksum "src" }}-{{ checksum "node_modules" }}
+          key: build-{{ .Revision }}
           paths:
             - "src"
             - "node_modules"
@@ -50,7 +50,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - build-{{ checksum "src" }}-{{ checksum "node_modules" }}
+            - build-{{ .Revision }}
       - run:
           name: CLI tests
           command: |
@@ -63,7 +63,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - build-{{ checksum "src" }}-{{ checksum "node_modules" }}
+            - build-{{ .Revision }}
       - add_ssh_keys:
           fingerprints:
             - "64:a8:da:d6:2a:9a:ea:85:9e:4c:e3:22:c8:bd:36:1f"
