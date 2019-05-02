@@ -5,10 +5,6 @@ branch-develop-only: &branch-develop-only
     branches:
       only: develop
 
-restore-dependencies-cache: &restore-dependencies-cache
-  - restore_cache:
-      keys: npm-deps-{{ checksum "package-lock.json" }}
-
 jobs:
   contributors-build-image:
     machine: true
@@ -34,7 +30,8 @@ jobs:
       - image: stovelabs/granary-contributors
     steps:
       - checkout
-      <<: *restore-dependencies-cache
+      - restore_cache:
+          keys: npm-deps-{{ checksum "package-lock.json" }}
       - run:
           name: Build
           command: |
@@ -45,7 +42,8 @@ jobs:
     machine: true
     steps:
       - checkout
-      <<: *restore-dependencies-cache
+      - restore_cache:
+          keys: npm-deps-{{ checksum "package-lock.json" }}
       - run:
           name: CLI tests
           command: |
