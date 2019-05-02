@@ -53,7 +53,8 @@ jobs:
     machine: true
     steps:
       - checkout
-      <<: *restore-dependencies-cache
+      - restore_cache:
+          keys: npm-deps-{{ checksum "package-lock.json" }}
       - add_ssh_keys:
           fingerprints:
             - "64:a8:da:d6:2a:9a:ea:85:9e:4c:e3:22:c8:bd:36:1f"
