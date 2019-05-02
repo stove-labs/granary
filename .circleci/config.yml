@@ -18,6 +18,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: |
+            npm i
+      - run:
+          name: Build
           command: |
             npm run build
 
