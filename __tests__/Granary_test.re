@@ -20,7 +20,7 @@ describe("granary", () => {
         let output = execCommand("--help");
 
         test("should output granary art", () => {
-            let expectedArt = Granary.Cli.granaryArt;
+            let expectedArt = Cli.granaryArt;
             expect(output) |> toContainString(expectedArt)
         });
 
