@@ -4,6 +4,8 @@ open TerminalLink;
 
 let program = commander;
 
+let docsLink = " https://stove-labs.github.io/granary/ ";
+let issuesLink = " https://github.com/stove-labs/granary/issues ";
 let granaryArt = {|
      ______                                          
     / _____)                                         
@@ -16,9 +18,9 @@ let granaryArt = {|
 
                                               
 |} 
-    ++ terminalLink("Docs", " https://stove-labs.github.io/granary/ ")
+    ++ terminalLink("Docs", docsLink)
     ++ "\n"
-    ++ terminalLink("Issues", " https://github.com/stove-labs/granary/issues ");
+    ++ terminalLink("Issues", issuesLink);
 
 /**
  * Run the CLI / parse current arguments

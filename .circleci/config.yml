@@ -12,6 +12,15 @@ jobs:
       - checkout
       - run: make contributors-build-image
 
+  build:
+    docker:
+      - image: stovelabs/granary-contributors
+    steps:
+      - checkout
+      - run:
+        command: |
+          npm run build
+
   test:
     # @TODO: run tests in a predefined environment, e.g. node 11
     machine: true
@@ -20,7 +29,7 @@ jobs:
       - run:
           name: CLI tests
           command: |
-            make contributors-test
+            npm run test
 
   deploy-npm-package:
     machine: true
@@ -64,16 +73,18 @@ workflows:
   default:
     jobs:
       - contributors-build-image
+      - build
       - test
+          requires:
+            - build
+            - contributors-build-image
       - deploy-npm-package:
           <<: *branch-develop-only
           requires: 
-            - contributors-build-image
             - test
       - deploy-website:
           <<: *branch-develop-only
           requires: 
-            - contributors-build-image
             - test
     
 
