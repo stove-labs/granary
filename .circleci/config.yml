@@ -31,7 +31,8 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: npm-deps-{{ checksum "package-lock.json" }}
+          keys: 
+            - npm-deps-{{ checksum "package-lock.json" }}
       - run:
           name: Build
           command: |
@@ -43,7 +44,8 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: npm-deps-{{ checksum "package-lock.json" }}
+          keys: 
+            - npm-deps-{{ checksum "package-lock.json" }}
       - run:
           name: CLI tests
           command: |
@@ -54,7 +56,8 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: npm-deps-{{ checksum "package-lock.json" }}
+          keys: 
+            - npm-deps-{{ checksum "package-lock.json" }}
       - add_ssh_keys:
           fingerprints:
             - "64:a8:da:d6:2a:9a:ea:85:9e:4c:e3:22:c8:bd:36:1f"
