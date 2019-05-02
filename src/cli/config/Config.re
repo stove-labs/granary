@@ -68,7 +68,7 @@ let start = () => {
      * @TODO figure out a way to move this to global options
      */
     Cli.program 
-        -> option("--config <path>", "Specify a custom config path")
+        -> option("-c, --config <path>", "Specify a custom config path")
         |> ignore;
 
     Cli.program
