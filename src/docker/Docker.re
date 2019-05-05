@@ -22,7 +22,6 @@ let start = (containerOptions) => {
             container
                 -> start()
                 |> Js.Promise.then_((container) => {
-                    Js.log("Container started!");
                     Js.Promise.resolve(container);
                 })
             Js.Promise.resolve(container);
@@ -60,7 +59,6 @@ let stop = (containerName) => {
             container
                 -> remove()
                 |> Js.Promise.then_((container) => {
-                    Js.log("Container stopped and removed!");
                     Js.Promise.resolve(container);
                 })
             Js.Promise.resolve(container);

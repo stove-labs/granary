@@ -22,3 +22,7 @@ let init = (baseInitFilePath, destinationPath, initFiles) => {
         copyFileSync(filePath, destinationPath ++ "/" ++ fileName);
     });
 };
+
+let clean = (path) => {
+    RimRaf.sync(path);
+}

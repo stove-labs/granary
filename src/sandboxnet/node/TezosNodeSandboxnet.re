@@ -19,6 +19,7 @@ let nodeInitFiles = [
     "version.json"
 ];
 let init = () => Data.init(nodeBaseInitFilePath, nodeInitDestinationPath, nodeInitFiles);
+let clean = () => Data.clean(nodeInitDestinationPath);
 
 
 let ports = Js.Dict.empty();
@@ -31,11 +32,13 @@ let containerHostConfig: hostConfiguration = hostConfiguration(
     ~networkMode = Some(dockerNetworkName)
 );
 
+Js.log(nodeDataDir ++ "/sandbox.json");
+
 let containerOptions = createContainerOptions(
     ~image=Some(dockerImage),
     ~cmd= Some([|
         "run",
-        "--sandbox=" ++ nodeInitDestinationPath ++ "/sandbox.json",
+        "--sandbox=" ++ nodeDataDir ++ "/sandbox.json",
         "--data-dir=" ++ nodeDataDir ,
         "--no-bootstrap-peers",
         "--private-mode",
@@ -48,10 +51,11 @@ let containerOptions = createContainerOptions(
 );
 
 let start = () => {
-
     Docker.start(containerOptions)
         |> Js.Promise.then_((container) => {
             Js.Promise.resolve(container);
         })
 };
 let stop = () => Docker.stop(nodeContainerName);
+
+let clean = () => Data.clean(nodeInitDestinationPath);

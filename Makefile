@@ -23,3 +23,6 @@ contributors-build-user-images:
 contributors-push-user-images:
 	docker push stovelabs/granary-tezos-node-sandboxnet
 	docker push stovelabs/granary-tezos-client
+
+activate:
+	docker run -v $(PWD):$(PWD):delegated --network=granary stovelabs/granary-tezos-client-sandboxnet --base-dir $(PWD)/.granary/sandboxnet/client --addr granary-tezos-node-sandbox activate protocol ProtoALphaALphaALphaALphaALphaALphaALphaALphaDdp3zK with fitness 1 and key activator and parameters "$(PWD)/protocol_parameters.json" --timestamp 2019-05-05T19:18:34Z

@@ -49,7 +49,7 @@ let configDefaults = [%bs.raw {|
                     dockerImage: "stovelabs/granary-tezos-node-sandboxnet",
                     containerName: "granary-tezos-node-sandbox",
                     rpcPort: "8732",
-                    dataDir: "data.networks.<network>.nodeFolder"
+                    dataDir: "<data.networks.sandboxnet.nodeFolder>"
                 },
                 alphanet: {
                     dockerImage: "",

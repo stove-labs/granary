@@ -3,13 +3,12 @@ open Log;
 open Config;
 open ConfigStore;
 
-[@bs.send] external initAction: (commander, unit => unit) => unit = "action";
-[@bs.send] external commandAction: (commander, unit => unit) => unit = "action";
-
 let initClient = () => {
     TezosClient.init();
     ();
 }
+
+let cleanClient = () => TezosClient.clean();
 
 let forwardCommands = () => {
     let commands: array(string) = Node.Process.argv
@@ -30,14 +29,19 @@ let start = () => {
     Cli.program
         -> command("init")
         -> description("Scaffolds necessary files & folders for a network specific tezos-client")
-        -> initAction(initClient) 
+        -> action(initClient) 
         |> ignore;
 
     Cli.program
-        -> command("- [command...]")
-        -> description("Scaffolds necessary files & folders for a network specific tezos-client")
+        -> command("clean")
+        -> description("Cleans up the network specific tezos-client")
+        -> action(cleanClient) 
+        |> ignore;
+
+    Cli.program
+        -> description("Forwards any command to a network specific tezos-client")
         -> allowUnknownOption()
-        -> commandAction(forwardCommands)
+        -> action(forwardCommands)
         |> ignore;
 
     Cli.parse();

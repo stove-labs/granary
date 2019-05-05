@@ -13,6 +13,7 @@ let clientBaseInitFilePath = "";
 let clientInitDestinationPath = Config.getExn("data.networks.<network>.clientFolder");
 
 let init = () => Data.init(clientBaseInitFilePath, clientInitDestinationPath, clientInitFiles);
+let clean = () => Data.clean(clientInitDestinationPath);
 
 let start = (cmd) => {
     let containerHostConfig: hostConfiguration = hostConfiguration(
