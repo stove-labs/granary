@@ -15,7 +15,9 @@ contributors-build-user-images:
 	# node
 	docker build -t stovelabs/granary-tezos-node-sandboxnet ./docker/tezos-node/sandboxnet
 	# client
-	docker build -t stovelabs/granary-tezos-client ./docker/tezos-client
+	docker build -t stovelabs/granary-tezos-client-sandboxnet -f ./docker/tezos-client/sandboxnet/Dockerfile ./docker/tezos-client
+	docker build -t stovelabs/granary-tezos-client-alphanet -f ./docker/tezos-client/alphanet/Dockerfile ./docker/tezos-client
+
 
 
 contributors-push-user-images:

@@ -21,4 +21,4 @@ let init = (baseInitFilePath, destinationPath, initFiles) => {
         let (filePath, fileName) = fileToCopy(initFile);
         copyFileSync(filePath, destinationPath ++ "/" ++ fileName);
     });
-}
+};

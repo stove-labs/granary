@@ -43,7 +43,20 @@ let start = () => {
         -> forwardedCommand(
             "config", 
             "Manipulate config values"
+        )
+        -> forwardedCommand(
+            "client", 
+            "Encapsulates a pre-configured tezos-client"
         );
+
+    /**
+     * Global CLI options
+     * 
+     * @TODO: this does not play very well if you try to run granary-config.js separately, it should be fixed
+     */
+    program 
+        -> option("-c, --config <path>", "Specify a custom config path")
+        |> ignore;
 
     parse();  
 }

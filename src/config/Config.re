@@ -18,16 +18,28 @@ let configDefaults = [%bs.raw {|
                     subFolderName: "<data.networks.sandboxnet.name>",
                     nodeFolder: "<data.basePath>/<data.networks.sandboxnet.subFolderName>/node",
                     clientFolder: "<data.basePath>/<data.networks.sandboxnet.subFolderName>/client"
+                },
+                alphanet: {
+                    "name": "alphanet",
+                    subFolderName: "<data.networks.alphanet.name>",
+                    nodeFolder: "",
+                    clientFolder: "<data.basePath>/<data.networks.alphanet.subFolderName>/client"
                 }
             }
         },
         tezosClient: {
             networks: {
                 sandboxnet: {
-                    dockerImage: "stovelabs/granary-tezos-client",
+                    dockerImage: "stovelabs/granary-tezos-client-sandboxnet",
                     nodeAddr: "<tezosNode.networks.sandboxnet.containerName>",
                     nodeRpcPort: "<tezosNode.networks.sandboxnet.rpcPort>",
-                    baseDir: "<data.networks.<network>.clientFolder>"
+                    baseDir: "<data.networks.sandboxnet.clientFolder>"
+                },
+                alphanet: {
+                    dockerImage: "stovelabs/granary-tezos-client-alphanet",
+                    nodeAddr: "alphanet.tezrpc.me",
+                    nodeRpcPort: "443",
+                    baseDir: "<data.networks.alphanet.clientFolder>"
                 }
             }
         },
@@ -38,6 +50,12 @@ let configDefaults = [%bs.raw {|
                     containerName: "granary-tezos-node-sandbox",
                     rpcPort: "8732",
                     dataDir: "data.networks.<network>.nodeFolder"
+                },
+                alphanet: {
+                    dockerImage: "",
+                    containerName: "",
+                    rpcPort: "",
+                    dataDir: ""
                 }
             }
         }
@@ -63,8 +81,6 @@ let getConfigStore = () => {
         globalConfigPath: None,
         configPath: Some(configPath)
     }];
-
-
 
     ConfigStore.configStore(Package.name, configDefaults, configOptions);
 };

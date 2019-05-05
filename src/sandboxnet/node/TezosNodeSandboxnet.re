@@ -1,12 +1,24 @@
 open Docker;
 open Dockerode;
-open Sandboxnet;
+open Data;
 
 let nodePort = Config.getExn("tezosNode.networks.<network>.rpcPort");
 let nodeContainerName = Config.getExn("tezosNode.networks.<network>.containerName");
 let nodeDataDir = cwd ++ "/" ++ Config.getExn("tezosNode.networks.<network>.dataDir");
 let dockerNetworkName = Config.getExn("dockerNetworkName");
 let dockerImage = Config.getExn("tezosNode.networks.<network>.dockerImage");
+
+let dirname: string = [%bs.raw {|__dirname|}];
+let nodeBaseInitFilePath: string = dirname ++ "/init";
+let nodeInitDestinationPath = Config.getExn("data.networks.<network>.nodeFolder");
+
+let nodeInitFiles = [
+    "config.json",
+    "identity.json",
+    "sandbox.json",
+    "version.json"
+];
+let init = () => Data.init(nodeBaseInitFilePath, nodeInitDestinationPath, nodeInitFiles);
 
 
 let ports = Js.Dict.empty();
@@ -42,4 +54,4 @@ let start = () => {
             Js.Promise.resolve(container);
         })
 };
-let stop = () => Docker.stop(nodeContainerName)
+let stop = () => Docker.stop(nodeContainerName);

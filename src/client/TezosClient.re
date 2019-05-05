@@ -1,12 +1,18 @@
 open Docker;
 open Dockerode;
-open Sandboxnet;
 open TezosNodeSandboxnet;
 
 let dockerNetworkName = Config.getExn("dockerNetworkName");
 let dockerImage = Config.getExn("tezosClient.networks.<network>.dockerImage");
 let clientDataDir = cwd ++ "/" ++ Config.getExn("tezosClient.networks.<network>.baseDir");
+let nodeAddr = Config.getExn("tezosClient.networks.<network>.nodeAddr");
+let nodeRpcPort = Config.getExn("tezosClient.networks.<network>.nodeRpcPort");
 
+let clientInitFiles = [];
+let clientBaseInitFilePath = "";
+let clientInitDestinationPath = Config.getExn("data.networks.<network>.clientFolder");
+
+let init = () => Data.init(clientBaseInitFilePath, clientInitDestinationPath, clientInitFiles);
 
 let start = (cmd) => {
     let containerHostConfig: hostConfiguration = hostConfiguration(
@@ -14,17 +20,15 @@ let start = (cmd) => {
         ~portBindings = None,
         ~networkMode = Some(dockerNetworkName)
     );
-
-    Js.log(clientDataDir);
     
     let configCmd = [|
         "--base-dir " ++ clientDataDir,
-        "--addr " ++ nodeContainerName,
-        "--port " ++ nodePort
+        "--addr " ++ nodeAddr,
+        "--port " ++ nodeRpcPort
     |];
 
     let cmd = Array.concat([configCmd, cmd]);
-    
+
     let containerOptions = createContainerOptions(
         ~image=Some(dockerImage),
         ~cmd= Some(cmd),

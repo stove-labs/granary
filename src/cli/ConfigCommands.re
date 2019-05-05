@@ -5,7 +5,13 @@ open ConfigStore;
 
 [@bs.send] external showAction: (commander, (option(string)) => unit) => unit = "action";
 [@bs.send] external setAction: (commander, (string, option(string)) => unit) => unit = "action";
+[@bs.send] external initAction: (commander, unit => unit) => unit = "action";
 
+
+let initConfig = () => {
+    getConfigStore();
+    ()
+}
 
 let showProperty = (property) => {
     switch (property) {
@@ -42,13 +48,6 @@ let start = () => {
     Cli.program
         -> description(Cli.granaryArt);
 
-    /**
-     * @TODO figure out a way to move this to global options
-     */
-    Cli.program 
-        -> option("-c, --config <path>", "Specify a custom config path")
-        |> ignore;
-
     Cli.program
         -> command("set <property> [value]")
         -> description("Upserts properties into the config")
@@ -61,9 +60,11 @@ let start = () => {
         -> showAction(showProperty) 
         |> ignore;
 
-    TezosClient.start([|
-        "import secret key alice unencrypted:edsk39qAm1fiMjgmPkw1EgQYkMzkJezLNewd7PLNHTkr6w9XA2zdfo"
-    |]);
+    Cli.program
+        -> command("init")
+        -> description("Initializes a config with default values")
+        -> initAction(initConfig) 
+        |> ignore;
 
-    /* Cli.parse(); */
+    Cli.parse();
 }
