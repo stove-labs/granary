@@ -2,6 +2,7 @@ open Commander;
 open Log;
 open Config;
 open ConfigStore;
+open Cli;
 
 let initClient = () => {
     TezosClient.init();
@@ -23,26 +24,26 @@ let forwardCommands = () => {
 
 let start = () => {
 
-    Cli.program
-        -> description(Cli.granaryArt);
+    program
+        -> description(granaryArt);
 
-    Cli.program
+    program
         -> command("init")
         -> description("Scaffolds necessary files & folders for a network specific tezos-client")
         -> action(initClient) 
         |> ignore;
 
-    Cli.program
+    program
         -> command("clean")
         -> description("Cleans up the network specific tezos-client")
         -> action(cleanClient) 
         |> ignore;
 
-    Cli.program
+    program
         -> description("Forwards any command to a network specific tezos-client")
         -> allowUnknownOption()
         -> action(forwardCommands)
         |> ignore;
 
-    Cli.parse();
+    parse();
 }

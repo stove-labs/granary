@@ -57,14 +57,5 @@ let start = () => {
             "Initialize granary's config, node and client"
         );
 
-    /**
-     * Global CLI options
-     * 
-     * @TODO: this does not play very well if you try to run granary-config.js separately, it should be fixed
-     */
-    program 
-        -> option("-c, --config <path>", "Specify a custom config path")
-        |> ignore;
-
-    parse();  
+    parse();
 }

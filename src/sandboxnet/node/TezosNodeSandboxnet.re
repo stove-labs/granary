@@ -32,8 +32,6 @@ let containerHostConfig: hostConfiguration = hostConfiguration(
     ~networkMode = Some(dockerNetworkName)
 );
 
-Js.log(nodeDataDir ++ "/sandbox.json");
-
 let containerOptions = createContainerOptions(
     ~image=Some(dockerImage),
     ~cmd= Some([|

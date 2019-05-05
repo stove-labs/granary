@@ -2,13 +2,14 @@ open Commander;
 open Log;
 open Config;
 open ConfigStore;
+open Cli;
 
 let start = () => {
 
-    Cli.program
-        -> description(Cli.granaryArt);
+    program
+        -> description(granaryArt);
 
-    Cli.program
+    program
         -> description("Inits the granary config, node and client.")
         -> allowUnknownOption()
         -> action(() => {
@@ -18,5 +19,5 @@ let start = () => {
         })
         |> ignore;
 
-    Cli.parse();
+    parse();
 };

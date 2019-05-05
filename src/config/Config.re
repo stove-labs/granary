@@ -65,8 +65,12 @@ let configDefaults = [%bs.raw {|
 
 let getConfigStore = () => {
     
-    /* Allow override of the default config path via --config */
-    let configPath = switch(Js.Dict.get(Cli.program, "config")) {
+    /**
+     * @TODO: figure out a way to turn this into a --config cli option
+     * while still using commander.js sub-commands
+     */
+    /* Allow override of the default config path */
+    let configPath = switch([%bs.raw {|process.env.GRANARY_CONFIG|}]) {
         | Some(configPath) => {
             log(
                 ~message = ":warning:  Using custom config path: " ++ configPath

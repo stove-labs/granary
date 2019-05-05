@@ -2,6 +2,7 @@ open Commander;
 open Log;
 open Config;
 open ConfigStore;
+open Cli;
 
 let initClient = () => {
     TezosClient.init();
@@ -22,32 +23,32 @@ let stopNode = () => {
 
 let start = () => {
 
-    Cli.program
-        -> description(Cli.granaryArt);
+    program
+        -> description(granaryArt);
 
-    Cli.program
+    program
         -> command("init")
         -> description("Scaffolds necessary files & folders for a network specific tezos-node")
         -> action(initNode) 
         |> ignore;
 
-    Cli.program
+    program
         -> command("clean")
         -> description("Cleans up the network specific tezos-node")
         -> action(cleanNode) 
         |> ignore;
 
-    Cli.program
+    program
         -> command("start")
         -> description("Starts a tezos-node")
         -> action(startNode)
         |> ignore;
 
-    Cli.program
+    program
         -> command("stop")
         -> description("Stops the tezos-node")
         -> action(stopNode)
         |> ignore;
 
-    Cli.parse();
+    parse();
 }

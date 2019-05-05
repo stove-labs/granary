@@ -22,7 +22,7 @@ describe("granary", () => {
         describe("show", () => {
             test("it should show all config properties", () => {
                 let output = execCommand("config show");
-                let expectedVersion = "{}";
+                let expectedVersion = "network: 'sandboxnet'";
                 expect(output) |> toContainString(expectedVersion);
             });
 
@@ -58,30 +58,6 @@ describe("granary", () => {
                     | None => pass
                 }
             })
-        });
-
-        /* This test is a mess, could use a refactor */
-        describe("-c, --config", () => {
-            let customConfigPath = "./granary-test.json";
-
-            beforeEach(() => {
-                execCommand("config --config='" ++ customConfigPath ++ "' set " ++ propertyName ++ " " ++ propertyValue) |> ignore;
-            })
-
-            test("it should not write to the default config file", () => {
-                /* read two different configs */
-                let output = execCommand("config show " ++ propertyName);
-                expect(output) 
-                    |> not_ 
-                    |> toContainString(propertyValue)
-            });
-
-            test("it should write to the custom config file", () => {
-                /* read two different configs */
-                let outputWithCustomConfig = execCommand("config --config " ++ customConfigPath ++ " show " ++ propertyName);
-                expect(outputWithCustomConfig) 
-                    |> toContainString(propertyValue)
-            });
         });
     });
 });

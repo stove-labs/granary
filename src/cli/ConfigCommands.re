@@ -2,6 +2,7 @@ open Commander;
 open Log;
 open Config;
 open ConfigStore;
+open Cli;
 
 [@bs.send] external showAction: (commander, (option(string)) => unit) => unit = "action";
 [@bs.send] external setAction: (commander, (string, option(string)) => unit) => unit = "action";
@@ -45,26 +46,26 @@ let setProperty = (property, value) => {
 
 let start = () => {
 
-    Cli.program
-        -> description(Cli.granaryArt);
+    program
+        -> description(granaryArt);
 
-    Cli.program
+    program
         -> command("set <property> [value]")
         -> description("Upserts properties into the config")
         -> setAction(setProperty) 
         |> ignore;
 
-    Cli.program
+    program
         -> command("show [property]")
         -> description("Prints a property from the config")
         -> showAction(showProperty) 
         |> ignore;
 
-    Cli.program
+    program
         -> command("init")
         -> description("Initializes a config with default values")
         -> initAction(initConfig) 
         |> ignore;
 
-    Cli.parse();
+    parse();
 }
