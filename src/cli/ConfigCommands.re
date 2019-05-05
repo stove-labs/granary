@@ -1,43 +1,21 @@
 open Commander;
 open Log;
+open Config;
 open ConfigStore;
 
 [@bs.send] external showAction: (commander, (option(string)) => unit) => unit = "action";
 [@bs.send] external setAction: (commander, (string, option(string)) => unit) => unit = "action";
 
-let defaultConfigPath = "./granary.json";
-
-let getConfigStore = () => {
-    
-    /* Allow override of the default config path via --config */
-    let configPath = switch(Js.Dict.get(Cli.program, "config")) {
-        | Some(configPath) => {
-            log(
-                ~message = ":warning:  Using custom config path: " ++ configPath
-            )
-            configPath
-        }
-        | None => defaultConfigPath
-    };
-
-    /* %bs.obj to turn this record into a plain JS object */
-    let configOptions: ConfigStore.configOptions = [%bs.obj {
-        globalConfigPath: None,
-        configPath: Some(configPath)
-    }];
-    
-    ConfigStore.configStore(Package.name, [%bs.raw {|{}|}], configOptions);
-}
 
 let showProperty = (property) => {
-    let configStore = getConfigStore();
     switch (property) {
         | Some(property) => {
-            let value = configStore->get(property);
+            let value = Config.getOptional(property);
             /* This will also log when the value is undefined */
             Js.log(value);
         }
         | None => {
+            let configStore = getConfigStore();
             Js.log(configStore##all)
         }
     };
@@ -83,6 +61,9 @@ let start = () => {
         -> showAction(showProperty) 
         |> ignore;
 
+    TezosClient.start([|
+        "import secret key alice unencrypted:edsk39qAm1fiMjgmPkw1EgQYkMzkJezLNewd7PLNHTkr6w9XA2zdfo"
+    |]);
 
-    Cli.parse();
+    /* Cli.parse(); */
 }

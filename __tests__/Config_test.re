@@ -3,6 +3,7 @@ open Expect;
 open Granary_test;
 open Config;
 open ConfigStore;
+open ConfigCommands;
 
 let reset = () => {
     Node.Fs.writeFileAsUtf8Sync("./granary.json", "{}")
@@ -26,7 +27,7 @@ describe("granary", () => {
             });
 
             test("should show a single specific config property", () => {
-                Config.setProperty(propertyName, Some(propertyValue));
+                setProperty(propertyName, Some(propertyValue));
                 let output = execCommand("config show " ++ propertyName);
                 expect(output) |> toContainString(propertyValue);
             });
