@@ -69,8 +69,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: 
-            - dependencies-{{ checksum "package-lock.json" }}
+          keys:
             - build-{{ .Revision }}
       - add_ssh_keys:
           fingerprints:
@@ -97,6 +96,9 @@ jobs:
       - image: stovelabs/granary-contributors
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - build-{{ .Revision }}
       - run:
           name: Deploying to GitHub Pages
           command: |
