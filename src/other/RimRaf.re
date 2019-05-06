@@ -1,0 +1,1 @@
+[@bs.module "rimraf"] external sync: string => unit = "";

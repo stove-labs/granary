@@ -11,6 +11,9 @@
       "api-config": {
         "title": "Configuration"
       },
+      "client-usage": {
+        "title": "Usage"
+      },
       "contributors-development-environment": {
         "title": "Development environment"
       },
@@ -25,6 +28,12 @@
       },
       "getting-started-what-and-why": {
         "title": "What & Why"
+      },
+      "sandboxnet-activating-alpha-protocol": {
+        "title": "Activating the Alpha protocol"
+      },
+      "sandboxnet-introduction": {
+        "title": "Introduction"
       }
     },
     "links": {
@@ -33,6 +42,8 @@
     },
     "categories": {
       "Getting started": "Getting started",
+      "Sandbox": "Sandbox",
+      "Client": "Client",
       "API": "API",
       "Contributing": "Contributing"
     }

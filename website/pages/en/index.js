@@ -44,16 +44,13 @@ class HomeSplash extends React.Component {
         </div>
         <div className="window-content">
           <div><span className="comment"># Setup your development environment</span> </div>
-          <div><span>npm  </span>  install -g @stove-labs/granary@pre-alpha</div>
+          <div><span>npm </span> i -g @stove-labs/granary@pre-alpha</div>
+          <div><span>granary</span>init</div>
+          <div><span className="comment"># Start a local blockchain</span> </div>
           <div><span>granary</span>node start</div>
-          <div><span className="comment"># Compile your contract to Michelson</span> </div>
-          <div><span>granary</span>contract compile src/contracts/counter.reliq</div>
-          <div><span className="comment"># Deploy and use your contract</span> </div>
-          <div><span>granary</span>client - import secret key alice edsk...</div>
-          <div><span>granary</span>client - originate contract counter for alice transferring 0 from alice running src/contracts/counter.tz --init '0'</div>
-          <div><span className="comment"># See your contract in a local block explorer (e.g. http://localhost:8080)</span> </div>
-          <div><span>granary</span>explorer start</div>
-
+          <div><span className="comment"># Import an account</span> </div>
+          <div><span>granary</span>client - import secret key alice unencrypted:edsk3gUfU...</div>
+          <div><span>granary</span>client - get balance for alice</div>
         </div>
       </div>
       </div>
@@ -120,13 +117,13 @@ class Index extends React.Component {
           {
             image: `${baseUrl}img/nautical-compass.png`,
             imageAlign: 'top',
-            title: 'Integrated Block Explorer',
+            title: 'Integrated Block Explorer (soon™)',
             content: 'Visualize your network through a neat interface.'
           },
           {
             image: `${baseUrl}img/cruise-ship.png`,
             imageAlign: 'top',
-            title: 'Contract & DAPP Deployments',
+            title: 'Contract & DAPP Deployments (soon™)',
             content: 'Keeps track of your frontend & contract deployments'
           },
         ]}

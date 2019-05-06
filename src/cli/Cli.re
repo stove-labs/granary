@@ -43,6 +43,18 @@ let start = () => {
         -> forwardedCommand(
             "config", 
             "Manipulate config values"
+        )
+        -> forwardedCommand(
+            "client", 
+            "Encapsulates a pre-configured tezos-client"
+        )
+        -> forwardedCommand(
+            "node", 
+            "Manage a pre-configured tezos-node"
+        )
+        -> forwardedCommand(
+            "init", 
+            "Initialize granary's config, node and client"
         );
 
     parse();

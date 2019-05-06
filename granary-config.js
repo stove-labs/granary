@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('./src/cli/config/Config.bs').start();
+require('./src/cli/ConfigCommands.bs').start();

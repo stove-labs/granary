@@ -19,3 +19,5 @@ type commanderAction = unit => unit;
 [@bs.send] external option: (commander, string, string) => commander = "";
 
 [@bs.send] external description: (commander, string) => commander = "";
+
+[@bs.send] external allowUnknownOption: (commander, unit) => commander = "";

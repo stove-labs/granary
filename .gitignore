@@ -7,3 +7,4 @@ lib
 .bsb.lock
 granary.json
 granary-test.json
+.granary/

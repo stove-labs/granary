@@ -1,0 +1,15 @@
+{
+    "p2p": {
+        "expected-proof-of-work": 0,
+        "limits": {
+            "min-connections": 0,
+            "expected-connections": 1,
+            "max-connections": 1
+        }
+    },
+    "shell": {
+        "chain_validator": {
+            "bootstrap_threshold": 0
+        }
+    }
+}
