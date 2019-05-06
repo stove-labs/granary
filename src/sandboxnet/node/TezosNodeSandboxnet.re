@@ -53,10 +53,6 @@ let containerOptions = createContainerOptions(
     ~exposedPorts=Some(exposedPorts)
 );
 
-Js.log(containerOptions);
-Js.log(ports);
-
-
 let start = () => {
     Docker.start(containerOptions)
         |> Js.Promise.then_((container) => {

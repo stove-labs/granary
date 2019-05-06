@@ -35,17 +35,3 @@ rsion
 ## Starter kit
 
 If you're starting a new project, and you already have NPM & Docker installed, you can get up & running quiclky using the [Granary's starter kit](https://github.com/stove-labs/granary-starter-kit)
-
-```zsh
-# Clone the repository & pick an appropriate name
-git clone https://github.com/stove-labs/granary-starter-kit.git my-granary-project && cd my-granary-project
-
-# Install dependencies
-npm i
-
-# Initialize granary
-npm init
-
-# Start the app
-npm run start
-```
