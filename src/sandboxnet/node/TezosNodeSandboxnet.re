@@ -25,7 +25,11 @@ let clean = () => Data.clean(nodeInitDestinationPath);
 let ports = Js.Dict.empty();
 Js.Dict.set(ports, nodePort ++ "/tcp", [|
     portBinding(~hostPort=nodePort)
-|])
+|]);
+
+let exposedPorts = Js.Dict.empty();
+Js.Dict.set(exposedPorts, nodePort ++ "/tcp", [%bs.raw {|{}|}]);
+
 let containerHostConfig: hostConfiguration = hostConfiguration(
     ~volumeBindings = Some([|cwd ++ ":" ++ cwd|]),
     ~portBindings = Some(ports),
@@ -45,8 +49,13 @@ let containerOptions = createContainerOptions(
     |]),
     ~hostConfig= Some(containerHostConfig),
     ~name=Some(nodeContainerName),
-    ~tty=Some(false)
+    ~tty=Some(false),
+    ~exposedPorts=Some(exposedPorts)
 );
+
+Js.log(containerOptions);
+Js.log(ports);
+
 
 let start = () => {
     Docker.start(containerOptions)

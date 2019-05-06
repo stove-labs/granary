@@ -11,8 +11,7 @@ type portBinding = {
 type hostConfiguration = {
     [@bs.as "Binds"] volumeBindings: option(array(string)),
     [@bs.as "PortBindings"] portBindings: option(Js.Dict.t(array(portBinding))),
-    [@bs.as "NetworkMode"] networkMode: option(string),
-
+    [@bs.as "NetworkMode"] networkMode: option(string)
 };
 
 [@bs.deriving abstract]
@@ -21,7 +20,8 @@ type createContainerOptions = {
     [@bs.as "Cmd"] cmd: option(array(string)),
     [@bs.as "HostConfig"] hostConfig: option(hostConfiguration),
     [@bs.as "Tty"] tty: option(bool),
-    name: option(string),
+    [@bs.as "ExposedPorts"] exposedPorts: option(Js.Dict.t(Js.Dict.t(unit))),
+    name: option(string)
 };
 
 type container;

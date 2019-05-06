@@ -35,7 +35,8 @@ let start = (cmd) => {
         ~cmd= Some(cmd),
         ~hostConfig= Some(containerHostConfig),
         ~name=None,
-        ~tty=Some(true)
+        ~tty=Some(true),
+        ~exposedPorts=None
     );
 
     Docker.run(containerOptions)

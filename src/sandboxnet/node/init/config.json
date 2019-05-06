@@ -6,5 +6,10 @@
             "expected-connections": 1,
             "max-connections": 1
         }
+    },
+    "shell": {
+        "chain_validator": {
+            "bootstrap_threshold": 0
+        }
     }
 }
