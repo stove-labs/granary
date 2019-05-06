@@ -70,6 +70,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
+            - dependencies-{{ checksum "package-lock.json" }}
             - build-{{ .Revision }}
       - add_ssh_keys:
           fingerprints:
