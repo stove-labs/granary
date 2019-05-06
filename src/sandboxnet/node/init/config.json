@@ -7,6 +7,14 @@
             "max-connections": 1
         }
     },
+    "rpc": {
+        "cors-origin": [
+            "*"
+        ],
+        "cors-headers": [
+            "content-type"
+        ]
+    },
     "shell": {
         "chain_validator": {
             "bootstrap_threshold": 0
