@@ -1,2 +1,3 @@
-#!/bin/sh
-/usr/local/bin/tezos-client $@
+#!/bin/bash
+cmd="/usr/local/bin/tezos-client $@"
+eval $cmd

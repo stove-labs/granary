@@ -17,12 +17,12 @@ contributors-build-user-images:
 	# client
 	docker build -t stovelabs/granary-tezos-client-sandboxnet -f ./docker/tezos-client/sandboxnet/Dockerfile ./docker/tezos-client
 	docker build -t stovelabs/granary-tezos-client-alphanet -f ./docker/tezos-client/alphanet/Dockerfile ./docker/tezos-client
-
+	# contracts
+	docker build -t stovelabs/granary-ligo ./docker/ligo
 
 
 contributors-push-user-images:
 	docker push stovelabs/granary-tezos-node-sandboxnet
-	docker push stovelabs/granary-tezos-client
-
-activate:
-	docker run -v $(PWD):$(PWD):delegated --network=granary stovelabs/granary-tezos-client-sandboxnet --base-dir $(PWD)/.granary/sandboxnet/client --addr granary-tezos-node-sandbox activate protocol ProtoALphaALphaALphaALphaALphaALphaALphaALphaDdp3zK with fitness 1 and key activator and parameters "$(PWD)/protocol_parameters.json" --timestamp 2019-05-05T19:18:34Z
+	docker push stovelabs/granary-tezos-client-sandboxnet
+	docker push stovelabs/granary-tezos-client-alphanet
+	docker push stovelabs/granary-ligo
