@@ -1,7 +1,9 @@
 FROM tezos/tezos:alphanet
+
 USER root
+RUN apk add --no-cache bash
+
 COPY proxy.sh /usr/local/bin/tezos-client-proxy
-# ENTRYPOINT [ "/usr/local/bin/tezos-client" ];
 RUN chmod +x /usr/local/bin/tezos-client-proxy
 
 USER tezos
