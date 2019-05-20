@@ -8,3 +8,4 @@ lib
 granary.json
 granary-test.json
 .granary/
+protocol_parameters.json

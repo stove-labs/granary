@@ -1,6 +1,7 @@
 open Docker;
 open Dockerode;
 open Data;
+open Log;
 
 let nodePort = Config.getExn("tezosNode.networks.<network>.rpcPort");
 let nodeContainerName = Config.getExn("tezosNode.networks.<network>.containerName");
@@ -18,7 +19,11 @@ let nodeInitFiles = [
     "sandbox.json",
     "version.json"
 ];
-let init = () => Data.init(nodeBaseInitFilePath, nodeInitDestinationPath, nodeInitFiles);
+let init = () => {
+    log(":point_right:  Setting up sandboxnet node");
+    Data.init(nodeBaseInitFilePath, nodeInitDestinationPath, nodeInitFiles);
+    Docker.pull(dockerImage) |> ignore;
+}
 let clean = () => Data.clean(nodeInitDestinationPath);
 
 
@@ -49,15 +54,12 @@ let containerOptions = createContainerOptions(
     |]),
     ~hostConfig= Some(containerHostConfig),
     ~name=Some(nodeContainerName),
-    ~tty=Some(false),
+    ~tty=Some(true),
     ~exposedPorts=Some(exposedPorts)
 );
 
 let start = () => {
-    Docker.start(containerOptions)
-        |> Js.Promise.then_((container) => {
-            Js.Promise.resolve(container);
-        })
+    Docker.run(containerOptions);
 };
 let stop = () => Docker.stop(nodeContainerName);
 

@@ -67,7 +67,7 @@ granary config show
 
 ## Init
 
-Scaffolds both Node & Client's data directories
+Scaffolds both Node & Client's data directories and setups Docker for use with Granary
 
 ```shell
 granary init

@@ -10,6 +10,7 @@ open Cli;
 
 
 let initConfig = () => {
+    log(":point_right:  Setting up config");
     getConfigStore();
     ()
 }

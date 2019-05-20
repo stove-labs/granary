@@ -1,4 +1,3 @@
-open Log;
 open ConfigStore;
 open Lodash;
 
@@ -71,12 +70,7 @@ let getConfigStore = () => {
      */
     /* Allow override of the default config path */
     let configPath = switch([%bs.raw {|process.env.GRANARY_CONFIG|}]) {
-        | Some(configPath) => {
-            log(
-                ~message = ":warning:  Using custom config path: " ++ configPath
-            )
-            configPath
-        }
+        | Some(configPath) => configPath
         | None => defaultConfigPath
     };
 

@@ -1,41 +1,38 @@
 open Dockerode;
+open Log;
 
 let docker = dockerode();
 let cwd = Node.Process.cwd();
 
-let connectToNetwork = (containerName: string, network: string) => {
+let init = () => {
+    let networkName = Config.getExn("dockerNetworkName");
+    log(":point_right:  Setting up Docker: " ++ networkName);
     docker
-        -> getNetwork(network)
-        -> connect(networkConnectOptions(
-            ~container= containerName,
-            ~id= network
-        ));
+        -> createNetwork(createNetworkOptions(
+            ~name = networkName,
+            ~checkDuplicate = Some(true)
+        )) |> ignore;
 };
 
-/**
- * Start a container with the provided options
- */
-let start = (containerOptions) => {
-    docker
-        -> createContainer(containerOptions)
-        |> Js.Promise.then_((container: Dockerode.container) => {
-            container
-                -> start()
-                |> Js.Promise.then_((container) => {
-                    Js.Promise.resolve(container);
-                })
-            Js.Promise.resolve(container);
-        });
+let pull = (imageName: string): Js.Promise.t(string) => {
+    log("Updating image: " ++ imageName);
+    Js.Promise.make((~resolve, ~reject) => {
+        docker
+            -> pull(imageName, (err, stream) => {
+                [%bs.raw {| docker.modem.followProgress(stream, () => resolve(imageName), () => {}) |}];
+            });
+    });
 };
 
 let run = (containerOptions: createContainerOptions) => {
+    let imageName = Belt.Option.getWithDefault(
+        containerOptions->imageGet,
+        ""
+    );
     docker
         -> run(
             /* Use the image from container options instead */
-            Belt.Option.getWithDefault(
-                containerOptions->imageGet,
-                ""
-            ),
+            imageName,
             /* Use the cmd from container options instead */
             Belt.Option.getWithDefault(
                 containerOptions->cmdGet,
@@ -44,6 +41,9 @@ let run = (containerOptions: createContainerOptions) => {
             [%bs.raw {|process.stdout|}],
             containerOptions
         )
+        |> Js.Promise.then_((container) => {
+            Js.Promise.resolve(imageName)
+        });
 };
 
 /**
@@ -54,13 +54,11 @@ let stop = (containerName) => {
         -> getContainer(containerName)
 
     container
-        -> stop()
+        -> remove(removeContainerOptions(
+            ~force = Some(true)
+        ))
         |> Js.Promise.then_((container) => {
-            container
-                -> remove()
-                |> Js.Promise.then_((container) => {
-                    Js.Promise.resolve(container);
-                })
             Js.Promise.resolve(container);
-        });
+        })
+    Js.Promise.resolve(container);
 };

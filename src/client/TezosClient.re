@@ -12,7 +12,10 @@ let clientInitFiles = [];
 let clientBaseInitFilePath = "";
 let clientInitDestinationPath = Config.getExn("data.networks.<network>.clientFolder");
 
-let init = () => Data.init(clientBaseInitFilePath, clientInitDestinationPath, clientInitFiles);
+let init = () => {
+    Data.init(clientBaseInitFilePath, clientInitDestinationPath, clientInitFiles);
+    Docker.pull(dockerImage) |> ignore;
+}
 let clean = () => Data.clean(clientInitDestinationPath);
 
 let start = (cmd) => {
@@ -39,8 +42,5 @@ let start = (cmd) => {
         ~exposedPorts=None
     );
 
-    Docker.run(containerOptions)
-    |> Js.Promise.then_((container) => {
-        Js.Promise.resolve(container);
-    })
+    Docker.run(containerOptions);
 };

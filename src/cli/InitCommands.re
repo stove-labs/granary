@@ -13,6 +13,7 @@ let start = () => {
         -> description("Inits the granary config, node and client.")
         -> allowUnknownOption()
         -> action(() => {
+            Docker.init();
             ConfigCommands.initConfig();
             ClientCommands.initClient();
             TezosNodeSandboxnet.init();

@@ -27,7 +27,11 @@ type createContainerOptions = {
 type container;
 [@bs.send] external start: (container, unit) => Js.Promise.t(container) = "";
 [@bs.send] external stop: (container, unit) => Js.Promise.t(container) = "";
-[@bs.send] external remove: (container, unit) => Js.Promise.t(container) = "";
+[@bs.deriving abstract]
+type removeContainerOptions = {
+    force: option(bool)
+};
+[@bs.send] external remove: (container, removeContainerOptions) => Js.Promise.t(container) = "";
 
 
 [@bs.send] external createContainer: (dockerode, createContainerOptions) => Js.Promise.t(container) = "";
@@ -49,7 +53,16 @@ type networkConnectOptions = {
     id: string
 };
 [@bs.send] external getNetwork: (dockerode, string) => network = "";
-[@bs.send] external connect: (network, networkConnectOptions) => Js.Promise.t(unit) = ""
+[@bs.send] external connect: (network, networkConnectOptions) => Js.Promise.t(unit) = "";
+[@bs.deriving abstract]
+type createNetworkOptions = {
+    name: string,
+    [@bs.as "CheckDuplicate"] checkDuplicate: option(bool)
+};
+[@bs.send] external createNetwork: (dockerode, createNetworkOptions) => Js.Promise.t(unit) = "";
+type pullErr;
+type pullStream;
+[@bs.send] external pull: (dockerode, string, (pullErr, pullStream) => unit) => unit = "";
 
 
 

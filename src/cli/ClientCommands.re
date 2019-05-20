@@ -5,6 +5,7 @@ open ConfigStore;
 open Cli;
 
 let initClient = () => {
+    log(":point_right:  Setting up client");
     TezosClient.init();
     ();
 }
