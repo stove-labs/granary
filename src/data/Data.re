@@ -24,5 +24,5 @@ let init = (baseInitFilePath, destinationPath, initFiles) => {
 };
 
 let clean = (path) => {
-    RimRaf.sync(path);
+    RimRaf.sync(path ++ "/*");
 }
