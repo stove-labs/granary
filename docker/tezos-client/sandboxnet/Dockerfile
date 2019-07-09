@@ -1,4 +1,4 @@
-FROM tezos/tezos:master
+FROM tezos/tezos:mainnet
 
 USER root
 RUN apk add --no-cache bash

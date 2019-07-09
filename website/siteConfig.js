@@ -41,6 +41,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     {doc: 'getting-started-what-and-why', label: 'Docs'},
+    {doc: 'tutorials-deploying-a-tezos-smart-contract-to-alphanet', label: 'Tutorials'},
     {doc: 'api-cli-commands', label: 'API'},
   ],
 

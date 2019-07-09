@@ -11,7 +11,7 @@ To install Granary, you need [NodeJS](https://nodejs.org/en/) installed on your 
 npm install --global @stove-labs/granary@pre-alpha
 ```
 
-> ⚠️ `--global` flag installs Granary globaly on your system, it might require `sudo` permissions depending on your installation of NodeJS.
+> ⚠️ `--global` flag installs Granary globaly on your system, it might require `sudo` permissions depending on your installation of NodeJS. Alternatively you can use `yarn glob add` to install Granary - depending on your permissions setup.
 
 Confirm that your installation was successfull by checking for the `--version` of Granary:
 

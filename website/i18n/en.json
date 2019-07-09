@@ -34,10 +34,17 @@
       },
       "sandboxnet-introduction": {
         "title": "Introduction"
+      },
+      "tutorials-deploying-a-tezos-smart-contract-to-alphanet": {
+        "title": "Deploying a Tezos smart contract to Alphanet"
+      },
+      "tutorials-interacting-with-a-tezos-smart-contract": {
+        "title": "Interacting with a Tezos smart contract on Alphanet"
       }
     },
     "links": {
       "Docs": "Docs",
+      "Tutorials": "Tutorials",
       "API": "API"
     },
     "categories": {
@@ -45,7 +52,8 @@
       "Sandbox": "Sandbox",
       "Client": "Client",
       "API": "API",
-      "Contributing": "Contributing"
+      "Contributing": "Contributing",
+      "Smart Contracts on Alphanet": "Smart Contracts on Alphanet"
     }
   },
   "pages-strings": {
