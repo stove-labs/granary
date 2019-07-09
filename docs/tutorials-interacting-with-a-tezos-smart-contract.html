@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Interacting with a Tezos smart contract on Alphanet · Granary</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;In &lt;a href=&quot;/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet&quot;&gt;the previous tutorial&lt;/a&gt; we&#x27;ve deployed a smart contract to Alphanet, it&#x27;s address at the time of the writing of the tutorial was &lt;strong&gt;KT1JfYDaNGwxVZB36SqeydVdBCVh6EVu93bP&lt;/strong&gt;&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Interacting with a Tezos smart contract on Alphanet · Granary"/><meta property="og:type" content="website"/><meta property="og:url" content="https://stove-labs.github.io/granary//granary/"/><meta property="og:description" content="&lt;p&gt;In &lt;a href=&quot;/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet&quot;&gt;the previous tutorial&lt;/a&gt; we&#x27;ve deployed a smart contract to Alphanet, it&#x27;s address at the time of the writing of the tutorial was &lt;strong&gt;KT1JfYDaNGwxVZB36SqeydVdBCVh6EVu93bP&lt;/strong&gt;&lt;/p&gt;
+"/><meta property="og:image" content="https://stove-labs.github.io/granary//granary/img/grain.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://stove-labs.github.io/granary//granary/img/grain.png"/><link rel="shortcut icon" href="/granary/img/grain.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow-night-eighties.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/granary/css/main.css"/><script src="/granary/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/granary/"><img class="logo" src="/granary/img/grain.png" alt="Granary"/><h2 class="headerTitleWithLogo">Granary</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/granary/docs/getting-started-what-and-why" target="_self">Docs</a></li><li class="siteNavGroupActive"><a href="/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet" target="_self">Tutorials</a></li><li class=""><a href="/granary/docs/api-cli-commands" target="_self">API</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Smart Contracts on Alphanet</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Smart Contracts on Alphanet</h3><ul class=""><li class="navListItem"><a class="navItem" href="/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet">Deploying a Tezos smart contract to Alphanet</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/granary/docs/tutorials-interacting-with-a-tezos-smart-contract">Interacting with a Tezos smart contract on Alphanet</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Interacting with a Tezos smart contract on Alphanet</h1></header><article><div><span><p>In <a href="/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet">the previous tutorial</a> we've deployed a smart contract to Alphanet, it's address at the time of the writing of the tutorial was <strong>KT1JfYDaNGwxVZB36SqeydVdBCVh6EVu93bP</strong></p>
+<blockquote>
+<p>Please note that the addresses and block explorer links are only valid until the next Alphanet restart</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="quick-look-at-our-existing-contract"></a><a href="#quick-look-at-our-existing-contract" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Quick look at our existing contract</h2>
+<p>Our contract doesn't do much more than storing the parameter that we send, in it's storage. You can see the <a href="https://alphanet.tzscan.io/KT1JfYDaNGwxVZB36SqeydVdBCVh6EVu93bP">deployed contract here</a>.
+Our goal is to invoke the contract and replace it's storage value with the value <code>7</code> - which is an int in the eyes of the contract.</p>
+<h3><a class="anchor" aria-hidden="true" id="addresses-of-the-existing-wallets-contracts"></a><a href="#addresses-of-the-existing-wallets-contracts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Addresses of the existing wallets / contracts</h3>
+<p>If you followed the previous tutorial, your Granary client already knows the addresses of our testing wallet <code>alice</code> and our contract <code>int_storage</code>. Let's take a quick look at how it looks like in our client:</p>
+<pre><code class="hljs css language-zsh">granary client - list known contracts
+</code></pre>
+<p><img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/list-contracts.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Listing existing contracts
+</div>
+<br/>
+<p>If you haven't followed the previous tutorial, you can load the <code>int_storage</code> contract to your client with the following command, however you will need to <a href="/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet#obtaining-an-identity-wallet">obtain your own faucet wallet</a>.</p>
+<pre><code class="hljs css language-zsh">granary client - remember contract int_storage KT1JfYDaNGwxVZB36SqeydVdBCVh6EVu93bP
+</code></pre>
+<blockquote>
+<p>Wondering why you need a new faucet wallet? Well, if you haven't obtained one in the previous tutorial, you will need an on-chain identity to invoke the contract.</p>
+</blockquote>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="invoking-the-contract"></a><a href="#invoking-the-contract" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Invoking the contract</h2>
+<p>Contracts on Tezos are invoked by a transaction sent to their respective address, where the transaction may or may not include additional arguments. There are gas costs, burns and fees associated with invoking a contract which are paid by the wallet that signed the transaction.</p>
+<h3><a class="anchor" aria-hidden="true" id="preparing-a-transaction"></a><a href="#preparing-a-transaction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Preparing a transaction</h3>
+<p>Easiest way to send a transaction with appropriate configuration (gas, burns and fees), is to run a dry-run simulation from the client. We want to transfer <code>0tz</code> from <code>alice</code> to <code>int_storage</code> with an integer argument of <code>7</code>.</p>
+<pre><code class="hljs css language-zsh">granary client - transfer 0 from alice to int_storage --dry-run --arg <span class="hljs-string">'7'</span>
+</code></pre>
+<p><img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/invocation-dry-run.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Dry running a transaction
+</div>
+<br/>
+<p>Let's take a closer look at the dry-run output:</p>
+<p><strong>Fee to the baker:</strong> <em>ꜩ0.001417</em></p>
+<p>A minimal fee that's paid to the baker which includes our operation.</p>
+<p><strong>Gas limit:</strong> <em>11599</em></p>
+<p>Gas consumed by each instruction of our contract's code, gas consumed increases the fee to the baker according to a <a href="http://tezos.gitlab.io/mainnet/protocols/004_Pt24m4xi.html#gas-and-fees">predefined formula</a>.</p>
+<p><strong>Balance updates</strong></p>
+<p>This section outlines which wallets will be affected by our operation, we can see that the fees are paid by <code>alice</code> <em>(tz1...3W4i)</em>.</p>
+<p><strong>Parameter &amp; Updated storage:</strong> <em>7</em></p>
+<p>We've sent our transaction with the argument of <code>7</code>, and our contract has update it's storage accordingly.</p>
+<p><br/></p>
+<h3><a class="anchor" aria-hidden="true" id="sending-a-live-alphanet-transaction"></a><a href="#sending-a-live-alphanet-transaction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sending a live Alphanet transaction</h3>
+<p>So far we've tried to dry-run our transaction and it went well, we're ready to inject it into the Alphanet. Let's run it again, this time without the <code>--dry-run</code>:</p>
+<pre><code class="hljs css language-zsh">granary client - transfer 0 from alice to int_storage --arg <span class="hljs-string">'7'</span>
+</code></pre>
+<p><em>Unfortunately, in my case the client reported the transaction as failed -  or at least it's simulation. This gives us an opportunity to explore additional means of figuring out if the transaction/operation has been included or not.</em></p>
+<p><img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/transaction-error.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Failed transfer simulation
+</div>
+<br/>
+<h3><a class="anchor" aria-hidden="true" id="looking-up-our-operation-on-the-block-explorer"></a><a href="#looking-up-our-operation-on-the-block-explorer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Looking up our operation on the block explorer</h3>
+<blockquote>
+<p>Please consider that this contract has no restraints on who can invoke it. The storage state might have changed since this tutorial was published.</p>
+</blockquote>
+<p>We can see our operation included <a href="https://alphanet.tzscan.io/BMLp7BDT5BxN5UnkSiGgfH8etKQyh79ZL3reTZ1a1yzaCdo36g4">here</a>.</p>
+<p><strong>Operation:</strong> <em>opEBoZqbKNc2AyyQGkX2Y13f9BtwFnzByrrsZwrWTaJtPJh7BRV</em></p>
+<p><strong>Included in block:</strong> <em>BMLp7BDT5BxN5UnkSiGgfH8etKQyh79ZL3reTZ1a1yzaCdo36g4</em></p>
+<p><strong>Fees paid:</strong> <em>1.417 mꜩ</em></p>
+<p>To wrap things up, you can take a look at the contract's storage after the operation has been included:</p>
+<p><img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/new-storage.png" />
+<br/></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Updated storage after the transaction
+</div>
+<p><br/></p>
+<p><strong>That's it, you've successfully invoked a contract and updated it's storage!</strong></p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 7/9/2019 by Matej Sima</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet"><span class="arrow-prev">← </span><span>Deploying a Tezos smart contract to Alphanet</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#quick-look-at-our-existing-contract">Quick look at our existing contract</a><ul class="toc-headings"><li><a href="#addresses-of-the-existing-wallets-contracts">Addresses of the existing wallets / contracts</a></li></ul></li><li><a href="#invoking-the-contract">Invoking the contract</a><ul class="toc-headings"><li><a href="#preparing-a-transaction">Preparing a transaction</a></li><li><a href="#sending-a-live-alphanet-transaction">Sending a live Alphanet transaction</a></li><li><a href="#looking-up-our-operation-on-the-block-explorer">Looking up our operation on the block explorer</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/granary/docs/api-cli-commands.html">API</a><a href="/granary/docs/api-config.html">Config</a></div><div><h5>Community</h5><a href="http://stackoverflow.com/questions/tagged/granary" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://t.me/stove_labs">Project Chat</a><a href="https://twitter.com/stove_labs" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://github.com/stove-labs/granary">GitHub</a><a class="github-button" href="https://github.com/stove-labs/granary" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/granary/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright"><a href="https://stove-labs.com">Copyright © 2019 Stove Labs</a><div>Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> and <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div><div>Terminal window by <a href="https://codepen.io/nikitahl/pen/BERzZY">nikitahl</a></div></section><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/></footer></div></body></html>

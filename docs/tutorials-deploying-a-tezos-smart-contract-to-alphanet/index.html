@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Deploying a Tezos smart contract to Alphanet · Granary</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;In this tutorial we&#x27;ll learn how to deploy a smart contract to the official Tezos Alphanet, utilizing Granary&#x27;s built in &lt;code&gt;tezos-client&lt;/code&gt;.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Deploying a Tezos smart contract to Alphanet · Granary"/><meta property="og:type" content="website"/><meta property="og:url" content="https://stove-labs.github.io/granary//granary/"/><meta property="og:description" content="&lt;p&gt;In this tutorial we&#x27;ll learn how to deploy a smart contract to the official Tezos Alphanet, utilizing Granary&#x27;s built in &lt;code&gt;tezos-client&lt;/code&gt;.&lt;/p&gt;
+"/><meta property="og:image" content="https://stove-labs.github.io/granary//granary/img/grain.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://stove-labs.github.io/granary//granary/img/grain.png"/><link rel="shortcut icon" href="/granary/img/grain.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow-night-eighties.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/granary/css/main.css"/><script src="/granary/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/granary/"><img class="logo" src="/granary/img/grain.png" alt="Granary"/><h2 class="headerTitleWithLogo">Granary</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/granary/docs/getting-started-what-and-why" target="_self">Docs</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet" target="_self">Tutorials</a></li><li class=""><a href="/granary/docs/api-cli-commands" target="_self">API</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Smart Contracts on Alphanet</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Smart Contracts on Alphanet</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet">Deploying a Tezos smart contract to Alphanet</a></li><li class="navListItem"><a class="navItem" href="/granary/docs/tutorials-interacting-with-a-tezos-smart-contract">Interacting with a Tezos smart contract on Alphanet</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Deploying a Tezos smart contract to Alphanet</h1></header><article><div><span><p>In this tutorial we'll learn how to deploy a smart contract to the official Tezos Alphanet, utilizing Granary's built in <code>tezos-client</code>.</p>
+<blockquote>
+<p>In order to run example commands in this tutorial, you will have to <a href="/granary/docs/getting-started-install">to install</a> Granary.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="configure-the-alphanet-client"></a><a href="#configure-the-alphanet-client" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configure the Alphanet client</h2>
+<p>Granary uses a local network known as <code>sandboxnet</code> by default, however in this tutorial we'll be deploying our contracts to a testing environment known as the Alphanet. In order to interact with it, we need a Tezos node running first - we'll use a remote publicly available node for this tutorial.</p>
+<p><br/>
+First step is to configure granary:</p>
+<pre><code class="hljs css language-zsh"><span class="hljs-comment"># Switch the network</span>
+granary config <span class="hljs-built_in">set</span> network <span class="hljs-string">"alphanet"</span>
+<span class="hljs-comment"># Initialise a client for the given network above</span>
+granary client init
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="selecting-a-public-alphanet-node"></a><a href="#selecting-a-public-alphanet-node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Selecting a public Alphanet node</h3>
+<p>We're going to use TzScan's Alphanet node, but you may choose to use any other publicly/locally available Alphanet node if you'd like.</p>
+<blockquote>
+<p>More information about TzScan's public nodes can be found <a href="https://mainnet-node.tzscan.io">here</a>.</p>
+</blockquote>
+<pre><code class="hljs css language-zsh">granary config <span class="hljs-built_in">set</span> tezosClient.networks.alphanet.nodeAddr <span class="hljs-string">"alphanet-node.tzscan.io"</span>
+granary config <span class="hljs-built_in">set</span> tezosClient.networks.alphanet.nodeRpcPort <span class="hljs-string">"80"</span>
+</code></pre>
+<p>To test that we have configured the client correctly, let's run a simple RPC request:</p>
+<pre><code class="hljs css language-zsh">granary client - rpc get /protocols
+</code></pre>
+<p><img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/rpc-get-protocols.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Alphanet client showing the available protocols within our node.
+</div>
+<p><br/></p>
+<p>Now that we're successfully connected to the Alphanet, let's acquire an identity/wallet that we can use.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="obtaining-an-identity-wallet"></a><a href="#obtaining-an-identity-wallet" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Obtaining an identity / wallet</h2>
+<p>In order to interact with the Alphanet, it'd be nice to have some <code>tez</code> at our disposal. Thankfully there is a <a href="https://faucet.tzalpha.net">faucet</a> available that we can use, here's how:</p>
+<ol>
+<li>Navigate to <a href="https://faucet.tzalpha.net">faucet</a></li>
+<li>Convince the website that you're not a robot (captcha)</li>
+<li>Download a JSON wallet</li>
+<li>Import/Activate the wallet via Granary's client</li>
+</ol>
+<p><img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/faucet.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Downloading a faucet wallet
+</div>
+<h3><a class="anchor" aria-hidden="true" id="activating-the-faucet-wallet"></a><a href="#activating-the-faucet-wallet" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Activating the faucet wallet</h3>
+<p>In order to use our Alphanet wallet, we have to activate it first.</p>
+<blockquote>
+<p>Replace <code>tz1__xxxxxxxxx__.json</code> with your real downloaded wallet from the faucet.</p>
+<p>More activations on Alphanet can be found <a href="https://tezos.gitlab.io/alphanet/introduction/howtouse.html#get-free-tez">here</a>.</p>
+</blockquote>
+<pre><code class="hljs css language-zsh">granary client - activate account alice with <span class="hljs-string">"tz1__xxxxxxxxx__.json"</span>
+</code></pre>
+<p><img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/activate-the-wallet.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Activating a faucet wallet
+</div>
+<br/>
+<p><i>Additionally, you can see your activation operation included in the Alphanet at TzScan. You can see the <a href="https://alphanet.tzscan.io/opV7vLCTsA82ByP5bCWZd6aMQ9SLCCxgvjaHCmsNf3x1YdycEP6">result of the activation operation above here</a> and the <a href="https://alphanet.tzscan.io/tz1iEg64GNrg2dni4BbLengagYBA9p5r3W4i">wallet itself here</a>.</i></p>
+<p><i>Please note that the links above are only valid until the next Alphanet reset.</i></p>
+<h3><a class="anchor" aria-hidden="true" id="testing-our-wallet-for-the-first-time"></a><a href="#testing-our-wallet-for-the-first-time" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Testing our wallet for the first time</h3>
+<p>In order to verify that we have activated our wallet correctly, we can try to obtain it's balance:</p>
+<pre><code class="hljs css language-zsh">granary client - get balance <span class="hljs-keyword">for</span> alice
+</code></pre>
+<p><img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/balance.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Checking the balance of our wallet
+</div>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="deploying-a-michelson-contract-to-alphanet"></a><a href="#deploying-a-michelson-contract-to-alphanet" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deploying a Michelson contract to Alphanet</h2>
+<p>For the sake of simplicity, we will only implement a very straightforward Michelson contract. It will store an <code>int</code> and it will accept an <code>int</code> as it's parameter too. All it does, is save the input parameter that we'll pass via a transaction into it's storage.</p>
+<blockquote>
+<p>If you'd like to learn more about Michelson, or it's derivatives, check out <a href="https://ligolang.org">LIGO</a>.</p>
+</blockquote>
+<p><strong><code>int_storage.tz</code></strong></p>
+<pre><code class="hljs css language-zsh">parameter int;
+storage int;
+code {CAR; NIL operation; PAIR};
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="deploying-a-contract"></a><a href="#deploying-a-contract" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deploying a contract</h3>
+<p>Deployment of a smart contract is called an origination. It represents a creation of an account, that has a certain script (code) attached to it - our smart contract. Contracts created through origination have an address starting with <code>KT1...</code>, as opposed to implicit accounts with addresses of 'tz1..` <em>(or tz2, tz3, ..)</em>.</p>
+<p><img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/originate.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Alice originates a contract
+</div>
+<br/>
+<p>Let's originate our contract with Granary's client, using <code>0</code> as the initial storage value:</p>
+<pre><code class="hljs css language-zsh">granary client - originate contract int_storage <span class="hljs-keyword">for</span> alice transferring 0 from alice running <span class="hljs-variable">$PWD</span>/int_storage.tz --init 0 --dry-run
+</code></pre>
+<blockquote>
+<p>Notice that we use <code>--dry-run</code> in our command, this only simulates the desired operation rather than injecting it into the network right away.</p>
+</blockquote>
+<p><br/></p>
+<p>However, we will notice that we get an error regarding an insufficient <em>burn cap</em>.
+<img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/burn-fee.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Error due to low burn cap
+</div>
+<br/>
+<blockquote>
+<p>If you'd like to learn more about gas &amp; fees, please <a href="https://tezos.gitlab.io/master/protocols/004_Pt24m4xi.html?highlight=burn%20fee#gas-and-fees">check out the official docs</a> for the current protocol version.</p>
+</blockquote>
+<p>If we adjust the command to include the burn cap and remove the <code>--dry-run</code>, the origination works as expected:</p>
+<pre><code class="hljs css language-zsh">granary client - originate contract int_storage <span class="hljs-keyword">for</span> alice transferring 0 from alice running <span class="hljs-variable">$PWD</span>/int_storage.tz --init 0 --burn-cap 0.295
+</code></pre>
+<hr>
+<p><strong>That's it! You've originated a new smart contract on Alphanet - the <a href="https://alphanet.tzscan.io/oosGGS98QMoVVPgXnkUKowp1ggrFVtvVB9QtxrwiEgA3iPBXPQv?default=origination">origination operation can be seen here</a> and the <a href="https://alphanet.tzscan.io/KT1JfYDaNGwxVZB36SqeydVdBCVh6EVu93bP">resulting originated account here</a>.</strong></p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 7/9/2019 by Matej Sima</em></div><div class="docs-prevnext"><a class="docs-next button" href="/granary/docs/tutorials-interacting-with-a-tezos-smart-contract"><span>Interacting with a Tezos smart contract on Alphanet</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#configure-the-alphanet-client">Configure the Alphanet client</a><ul class="toc-headings"><li><a href="#selecting-a-public-alphanet-node">Selecting a public Alphanet node</a></li></ul></li><li><a href="#obtaining-an-identity-wallet">Obtaining an identity / wallet</a><ul class="toc-headings"><li><a href="#activating-the-faucet-wallet">Activating the faucet wallet</a></li><li><a href="#testing-our-wallet-for-the-first-time">Testing our wallet for the first time</a></li></ul></li><li><a href="#deploying-a-michelson-contract-to-alphanet">Deploying a Michelson contract to Alphanet</a><ul class="toc-headings"><li><a href="#deploying-a-contract">Deploying a contract</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/granary/docs/api-cli-commands.html">API</a><a href="/granary/docs/api-config.html">Config</a></div><div><h5>Community</h5><a href="http://stackoverflow.com/questions/tagged/granary" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://t.me/stove_labs">Project Chat</a><a href="https://twitter.com/stove_labs" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://github.com/stove-labs/granary">GitHub</a><a class="github-button" href="https://github.com/stove-labs/granary" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/granary/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright"><a href="https://stove-labs.com">Copyright © 2019 Stove Labs</a><div>Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> and <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div><div>Terminal window by <a href="https://codepen.io/nikitahl/pen/BERzZY">nikitahl</a></div></section><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/></footer></div></body></html>
