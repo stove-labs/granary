@@ -71,7 +71,7 @@ In order to use our Alphanet wallet, we have to activate it first.
 > More activations on Alphanet can be found [here](https://tezos.gitlab.io/alphanet/introduction/howtouse.html#get-free-tez).
 
 ```zsh
-granary client - activate account alice with "tz1__xxxxxxxxx__.json"
+granary client - activate account alice with $PWD/tz1__xxxxxxxxx__.json
 ```
 
 <img src="/granary/img/tutorials/deploy-a-tezos-smart-contract-to-alphanet/activate-the-wallet.png" />
