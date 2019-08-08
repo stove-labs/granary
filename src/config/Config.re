@@ -49,12 +49,6 @@ let configDefaults = [%bs.raw {|
                     containerName: "granary-tezos-node-sandbox",
                     rpcPort: "8732",
                     dataDir: "<data.networks.sandboxnet.nodeFolder>"
-                },
-                alphanet: {
-                    dockerImage: "",
-                    containerName: "",
-                    rpcPort: "",
-                    dataDir: ""
                 }
             }
         }
