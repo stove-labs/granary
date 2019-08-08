@@ -95,12 +95,6 @@ The file below is an up-to-date version of the default `granary.json` configurat
                 containerName: "granary-tezos-node-sandbox",
                 rpcPort: "8732",
                 dataDir: "<data.networks.sandboxnet.nodeFolder>"
-            },
-            alphanet: {
-                dockerImage: "",
-                containerName: "",
-                rpcPort: "",
-                dataDir: ""
             }
         }
     }
