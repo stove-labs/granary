@@ -36,8 +36,7 @@ granary client - "--block genesis activate protocol ProtoALphaALphaALphaALphaALp
 
 # Import a secret key for the account 
 # specified in protocol_parameters.json's bootstrap_accounts
-granary client - import secret key "bootstrap1" "unencrypted:edsk3gUfUPyBSfrS9CCgmCiQsTCHGkviBDusMxDJstF
-tojtc1zcpsh"
+granary client - import secret key "bootstrap1" "unencrypted:edsk3gUfUPyBSfrS9CCgmCiQsTCHGkviBDusMxDJstFtojtc1zcpsh"
 
 # Our bootstrapped account also has baking rights right away,
 # so we bake a new block with the protocol activation
@@ -116,8 +115,7 @@ Once you've injected the alpha protocol with a set of *protocol parameters*, you
 
 ```zsh
 # Import the bootstrapped account, if we haven't dont that yet
-granary client - import secret key "bootstrap1" "unencrypted:edsk3gUfUPyBSfrS9CCgmCiQsTCHGkviBDusMxDJstF
-tojtc1zcpsh"
+granary client - import secret key "bootstrap1" "unencrypted:edsk3gUfUPyBSfrS9CCgmCiQsTCHGkviBDusMxDJstFtojtc1zcpsh"
 
 # Import a new account called 'alice'
 granary client - import secret key "alice" "unencrypted:edsk39qAm1fiMjgmPkw1EgQYkMzkJezLNewd7PLNHTkr6w9XA2zdfo"
