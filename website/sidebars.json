@@ -1,9 +1,9 @@
 {
   "docs": {
     "Getting started": ["getting-started-what-and-why", "getting-started-install"],
-    "Sandbox": ["sandboxnet-introduction", "sandboxnet-activating-alpha-protocol"],
-    "Client": ["client-usage"],
     "API": ["api-cli-commands", "api-config"],
+    "Client": ["client-usage"],
+    "Sandbox": ["sandboxnet-introduction", "sandboxnet-activating-alpha-protocol"],
     "Contributing": ["contributors-development-environment", "contributors-updating-the-docs", "contributors-examples"]
   },
   "tutorials": {
