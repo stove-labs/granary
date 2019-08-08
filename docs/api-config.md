@@ -46,7 +46,7 @@ Default config path for the Granary CLI is `./granary.json`, which means that a 
 
 ## granary.json
 
-The file below is an up-to-date version of the default `granary.json` configuration file. Beware that it contains all the different options that are also used internally for Granary. You can see the most often used configuration options explained in the section below.
+The file below is an up-to-date version of the default `granary.json` configuration file. Beware that it contains all the different options that are also used internally for Granary.
 
 > ⚠️ Currently the default config is over-bloated, this will likely change when we hit `alpha`.
 
