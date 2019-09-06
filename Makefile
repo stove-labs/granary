@@ -17,12 +17,8 @@ contributors-build-user-images:
 	# client
 	docker build -t stovelabs/granary-tezos-client-sandboxnet -f ./docker/tezos-client/sandboxnet/Dockerfile ./docker/tezos-client
 	docker build -t stovelabs/granary-tezos-client-alphanet -f ./docker/tezos-client/alphanet/Dockerfile ./docker/tezos-client
-	# contracts
-	docker build -t stovelabs/granary-ligo ./docker/ligo
-
 
 contributors-push-user-images:
 	docker push stovelabs/granary-tezos-node-sandboxnet
 	docker push stovelabs/granary-tezos-client-sandboxnet
 	docker push stovelabs/granary-tezos-client-alphanet
-	docker push stovelabs/granary-ligo
