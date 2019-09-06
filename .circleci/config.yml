@@ -23,7 +23,7 @@ jobs:
       - save_cache:
           # separate cache for dependencies, as they dont
           # have to change with each new commit/revision
-          key: dependencies-{{ checksum "package-lock.json" }}
+          key: dependencies-{{ .Revision }}
           paths:
             - "node_modules"
 
@@ -34,7 +34,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - dependencies-{{ checksum "package-lock.json" }}
+            - dependencies-{{ .Revision }}
       - run:
           name: Build
           command: |
