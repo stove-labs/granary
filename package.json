@@ -29,6 +29,7 @@
     "granary-config": "./granary-config.js"
   },
   "dependencies": {
+    "bs-node": "github:reasonml-community/bs-node",
     "bs-platform": "^5.0.4",
     "commander": "^2.20.0",
     "configstore": "^4.0.0",
