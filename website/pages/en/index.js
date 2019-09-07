@@ -43,8 +43,6 @@ class HomeSplash extends React.Component {
           <button className="window-controls-btn expand-btn"></button>
         </div>
         <div className="window-content">
-          <div><span className="comment"># Setup your development environment</span> </div>
-          <div><span>npm </span> i -g @stove-labs/granary@pre-alpha</div>
           <div><span>granary</span>init</div>
           <div><span className="comment"># Start a local blockchain</span> </div>
           <div><span>granary</span>node start</div>
