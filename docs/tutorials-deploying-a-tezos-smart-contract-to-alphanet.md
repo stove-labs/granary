@@ -14,6 +14,8 @@ Granary uses a local network known as `sandboxnet` by default, however in this t
 <br/>
 First step is to configure granary:
 ```zsh
+# Initialise granary
+granary init
 # Switch the network
 granary config set network "alphanet"
 # Initialise a client for the given network above
