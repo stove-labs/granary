@@ -1,0 +1,1 @@
+./node_modules/.bin/granary client - bake for bootstrap1
