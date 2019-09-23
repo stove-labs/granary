@@ -3,7 +3,7 @@
     "Getting started": ["getting-started-what-and-why", "getting-started-install"],
     "API": ["api-cli-commands", "api-config"],
     "Client": ["client-usage"],
-    "Sandbox": ["sandboxnet-introduction", "sandboxnet-activating-alpha-protocol"],
+    "Sandbox": ["sandboxnet-introduction", "sandboxnet-activating-a-protocol"],
     "Contributing": ["contributors-development-environment", "contributors-updating-the-docs", "contributors-examples"]
   },
   "tutorials": {
