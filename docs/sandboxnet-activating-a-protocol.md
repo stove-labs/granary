@@ -1,6 +1,6 @@
 ---
-id: sandboxnet-activating-alpha-protocol
-title: Activating the Alpha protocol
+id: sandboxnet-activating-a-protocol
+title: Activating a protocol
 ---
 
 Sandboxed node comes with exactly one block on the chain - *the genesis block*. You can check it out using the `tezos-client`:
@@ -31,8 +31,9 @@ granary client - import secret key "activator" "unencrypted:edsk31vznjHSSpGExDMH
     "proof_of_work_threshold": "-1"
 }
 
-# Activate the alpha protocol using the activator key
-granary client - "--block genesis activate protocol ProtoALphaALphaALphaALphaALphaALphaALphaALphaDdp3zK with fitness 1 and key activator and parameters $PWD/protocol_parameters.json --timestamp $(TZ='AAA+1' date +%FT%TZ)"
+# Activate the desired protocol using the activator key
+# You can find additional available protocols in the list below
+granary client - activate protocol Pt24m4xiPbLDhVgVfABUjirbmda3yohdN82Sp9FeuAXJ4eV9otd with fitness 1 and key activator and parameters $PWD/protocol_parameters.json --timestamp $(TZ='AAA+1' date +%FT%TZ)
 
 # Import a secret key for the account 
 # specified in protocol_parameters.json's bootstrap_accounts
@@ -42,10 +43,17 @@ granary client - import secret key "bootstrap1" "unencrypted:edsk3gUfUPyBSfrS9CC
 # so we bake a new block with the protocol activation
 granary client - bake for "bootstrap1"
 
-# Confirm that we have a new block with the alpha protocol
+# Confirm that we have a new block with the new protocol
 granary client - rpc get "/chains/main/blocks/head"
 ```
 ---
+
+## Available protocols
+|Name |Hash |
+|:---|:---|
+|Athens| `Pt24m4xiPbLDhVgVfABUjirbmda3yohdN82Sp9FeuAXJ4eV9otd` |
+|Babylon| `PsBABY5HQTSkA4297zNHfsZNKtxULfL18y95qb3m53QJiXGmrbU` |
+
 ## Who can activate protocols?
 
 Activations on top of the *genesis* block/protocol, have to be signed by a private key, that belongs to the public key specified in `.granary/node/sandbox.json` as `genesis_pubkey`:
@@ -78,9 +86,9 @@ Secret Key: unencrypted:edsk31vznjHSSpGExDMHYASz45VZqXN4DPxvsa4hAyY8dHM28cZzp6
 ```
 
 ---
-## Alpha protocol parameters
+## Protocol parameters
 
-Alpha protocol can be customized by a `protocol_parameters.json` file.
+Protocol can be customized by a `protocol_parameters.json` file.
 
 ### Notable configuration options
 
@@ -109,7 +117,7 @@ Alpha protocol can be customized by a `protocol_parameters.json` file.
 
 ## Faucet
 
-Once you've injected the alpha protocol with a set of *protocol parameters*, you can simulate a faucet by transferring XTZ from one of the rich bootstrap accounts, to any account that you import to your client after activating the protocol.
+Once you've injected the protocol with a set of *protocol parameters*, you can simulate a faucet by transferring XTZ from one of the rich bootstrap accounts, to any account that you import to your client after activating the protocol.
 
 > ⚠️ You **will not** be able to import accounts from the [Alphanet faucet](https://faucet.tzalpha.net/)
 
