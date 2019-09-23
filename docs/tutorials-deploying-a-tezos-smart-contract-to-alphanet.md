@@ -5,7 +5,7 @@ title: Deploying a Tezos smart contract to Alphanet
 
 In this tutorial we'll learn how to deploy a smart contract to the official Tezos Alphanet, utilizing Granary's built in `tezos-client`.
 
-> In order to run example commands in this tutorial, you will have to [to install](getting-started-install.md) Granary.
+> In order to run example commands in this tutorial, you will have to [install](getting-started-install.md) Granary.
 
 ## Configure the Alphanet client
 
