@@ -37,7 +37,7 @@ granary client - rpc get /protocols
 
 <img src="/granary/img/tutorials/deploy-a-ligo-smart-contract-in-local-sandbox/available-protocols.png" />
 <div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
-Available protocls in our local Sandboxed node.
+Available protocols in our local Sandboxed node.
 </div>
 
 <br/>
@@ -128,6 +128,12 @@ ligo compile-contract taco-shop.ligo buy_taco
 
 Copy the CLI output from your terminal to `taco-shop.tz`
 
+<img src="/granary/img/tutorials/deploy-a-ligo-smart-contract-in-local-sandbox/michelson-smart-contract.png" />
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+This is the Michelson code of the Taco Shop.
+</div>
+<br/>
+
 > ℹ️ **\*.tz** is used for Michelson code.
 
 > ⚠️ If you are saving the output through your terminal on **OS X**, make sure to remove the additional '\r' line-breaks. This is a nasty bug and makes the ouput incompatible with Linux systems. Find a work-around script [here](https://github.com/stove-labs/granary/blob/features/examples/examples/deploying_ligo/contracts/compile-contract.sh#L7).
@@ -143,17 +149,25 @@ Let's examine the first 3 rows of the Michelson code.
 We can see that the *parameter* is quite simple and it is not necessary to run `ligo compile-parameter ...`, however the types expected for *storage* is more complex and we will compile that in the next section.
  
 ## Initial Storage
-From the [tutorial](https://ligolang.org/docs/tutorials/get-started/tezos-taco-shop-payout/#finalizing-the-contract) we take an initial storage as seen below.
+From the [tutorial](https://ligolang.org/docs/tutorials/get-started/tezos-taco-shop-payout/#finalizing-the-contract) we take the initial storage of `50`x `el clásico` tacos.
 
 ```sh
-# Compile contract code
+# Compile initiale storage
 ligo compile-storage taco-shop.ligo buy_taco "map 1n -> record current_stock = 50n; max_price = 50000000mtz; end; end"
 # { Elt 1 (Pair 50 50000000) }
 ```
+
+<img src="/granary/img/tutorials/deploy-a-ligo-smart-contract-in-local-sandbox/compile-storage.png" />
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+The storage types can look quite different between Ligo and Michelson.
+</div>
+<br/>
+
 We will use this output when originating the smart contract.
 
+
 ## Originating the smart contract
-Originating the smart contract in a local sandbox is basically a 2-step-process. First we injected the *operation* and then we *manually bake* the next block.
+Originating the smart contract in a local sandbox is basically a 2-step-process. First we inject the *operation* and then we *manually bake* the next block.
 ```zsh
 # Inject operation
 granary client - originate contract taco-shop for bootstrap1 transferring 0 from bootstrap1 running $PWD/contracts/taco-shop.tz --init '"{ Elt 1 (Pair 50 50000000) }"' --burn-cap 2.356 --force &
@@ -165,16 +179,18 @@ granary client - bake for bootstrap1
 
 Let's summarize the current state in the sandbox. We have deployed Pedro's digital Taco Shop and initialized his stock with 50 pieces of the *el clásico* type culinary. 
 
-> Bonus: Can you help Pedro to expand his offerings, by adding the *especial del chef* type taco?
+> 🤓 Bonus: Can you help Pedro to expand his offering, by adding the *especial del chef* type taco?
 
 # Interacting with Pedro's store
 
-Finally, Pedro's store is up and running and we are getting hungry after so much work. Let's buy our first taco by *invoking* the smart contract.
+Finally, Pedro's store is up and running and we can already smell the fresh tacos. We are getting quite hungry and want to buy our first taco by *invoking* the smart contract. This is just a fancy word for sending a transaction to the contract. This transaction *can* contain `tez` and/or `parameters`. The client uses the `--arg` flag.
 
-Using the formula of the tutorial, we know that the minimum price is with the current supply `1 tez`. Luckily we don't have to memorize the smart contract's address, because we have saved the contract in the client under the name `taco-shop`.
+Using the formula of the tutorial, we know that the minimum price depends on the available stock. Currently that should be at least `1 tez`. 
+Luckily, we don't have to memorize the smart contract's address, because the client saved it for us under the name `taco-shop`.
 
 ```zsh
-# We simply need to call
+# Call the contract by transferring 1tez 
+# and the parameter/arugment 1 for the taco type
 granary client - transfer 1 from bootstrap1 to taco-shop --arg '1' --burn-cap 0.257 &
 # Manually bake new block
 granary client - bake for bootstrap1
