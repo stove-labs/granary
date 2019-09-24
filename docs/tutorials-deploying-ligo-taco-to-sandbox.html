@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Deploying the Ligo Taco Shop Smart Contract to a local Sandbox · Granary</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;In this tutorial we&#x27;ll learn how to compile a Ligo smart contract to Michelson code and to deploy it to a local Sandbox, utilizing Granary&#x27;s built in tezos-client.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Deploying the Ligo Taco Shop Smart Contract to a local Sandbox · Granary"/><meta property="og:type" content="website"/><meta property="og:url" content="https://stove-labs.github.io/granary//granary/"/><meta property="og:description" content="&lt;p&gt;In this tutorial we&#x27;ll learn how to compile a Ligo smart contract to Michelson code and to deploy it to a local Sandbox, utilizing Granary&#x27;s built in tezos-client.&lt;/p&gt;
+"/><meta property="og:image" content="https://stove-labs.github.io/granary//granary/img/grain.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://stove-labs.github.io/granary//granary/img/grain.png"/><link rel="shortcut icon" href="/granary/img/grain.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow-night-eighties.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/granary/css/main.css"/><script src="/granary/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/granary/"><img class="logo" src="/granary/img/grain.png" alt="Granary"/><h2 class="headerTitleWithLogo">Granary</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/granary/docs/getting-started-what-and-why" target="_self">Docs</a></li><li class="siteNavGroupActive"><a href="/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet" target="_self">Tutorials</a></li><li class=""><a href="/granary/docs/api-cli-commands" target="_self">API</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Smart Contracts in a local Sandbox</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Smart Contracts on Alphanet</h3><ul class=""><li class="navListItem"><a class="navItem" href="/granary/docs/tutorials-deploying-a-tezos-smart-contract-to-alphanet">Deploying a Tezos smart contract to Alphanet</a></li><li class="navListItem"><a class="navItem" href="/granary/docs/tutorials-interacting-with-a-tezos-smart-contract">Interacting with a Tezos smart contract on Alphanet</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Smart Contracts in a local Sandbox</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/granary/docs/tutorials-deploying-ligo-taco-to-sandbox">Deploying the Ligo Taco Shop Smart Contract to a local Sandbox</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Deploying the Ligo Taco Shop Smart Contract to a local Sandbox</h1></header><article><div><span><p>In this tutorial we'll learn how to compile a Ligo smart contract to Michelson code and to deploy it to a local Sandbox, utilizing Granary's built in tezos-client.</p>
+<blockquote>
+<p>🆒 You can find an example project <a href="https://github.com/stove-labs/granary/tree/features/examples/examples/deploying_ligo">here</a> and fast forward in less than 2 minutes.</p>
+</blockquote>
+<blockquote>
+<p>In order to run example commands in this tutorial, you will have to <strong>install</strong> <a href="/granary/docs/getting-started-install"> Granary</a> and <a href="https://ligolang.org/docs/next/setup/installation/"> Ligo</a>.</p>
+</blockquote>
+<h1><a class="anchor" aria-hidden="true" id="setting-up-the-local-environment"></a><a href="#setting-up-the-local-environment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting up the local environment</h1>
+<p>First we need to initalise Granary in our project folder.</p>
+<pre><code class="hljs css language-zsh"><span class="hljs-comment"># Initialise Granary</span>
+granary init
+<span class="hljs-comment"># Start the node</span>
+granary node start &amp;
+</code></pre>
+<blockquote>
+<p>For troubleshooting, visit
+<a href="https://stove-labs.github.io/granary/docs/getting-started-install#troubleshooting-common-issues">docs-common-issues</a>.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="activating-the-protocol"></a><a href="#activating-the-protocol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Activating the protocol</h2>
+<blockquote>
+<p>ℹ️ There is no need to set the network to <em>Sandbox</em>, because that is the default setting.</p>
+</blockquote>
+<p>The <em>Sandboxed node</em> is in its current state not very useful to us, because it runs a dummy economic protocol, called genesis. What we'll do next is to activate the latest protocol that is used on mainnet. Read <a href="https://stove-labs.github.io/granary/docs/sandboxnet-activating-a-protocol">this</a> to learn more about activation.</p>
+<p>We retrieve the list of availabe protocols with:</p>
+<pre><code class="hljs css language-zsh">granary client - rpc get /protocols
+</code></pre>
+<p><img src="/granary/img/tutorials/deploy-a-ligo-smart-contract-in-local-sandbox/available-protocols.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+Available protocols in our local Sandboxed node.
+</div>
+<p><br/></p>
+<p>We want to activate <strong>Athens protocol</strong> with the hash <strong>Pt24m4xiPbLDhVgVfABUjirbmda3yohdN82Sp9FeuAXJ4eV9otd</strong>, but before doing so, save the following to <code>protocol_parameters.json</code>.</p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"bootstrap_accounts"</span>: [
+        [
+            <span class="hljs-string">"edpkuBknW28nW72KG6RoHtYW7p12T6GKc7nAbwYX5m8Wd9sDVC9yav"</span>,
+            <span class="hljs-string">"4000000000000"</span>
+        ]
+    ],
+    <span class="hljs-attr">"time_between_blocks"</span>: [
+        <span class="hljs-string">"1"</span>,
+        <span class="hljs-string">"0"</span>
+    ],
+    <span class="hljs-attr">"blocks_per_roll_snapshot"</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">"blocks_per_cycle"</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">"preserved_cycles"</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-attr">"proof_of_work_threshold"</span>: <span class="hljs-string">"-1"</span>
+}
+</code></pre>
+<pre><code class="hljs css language-zsh"><span class="hljs-comment"># Import the activator secret key</span>
+granary client - import secret key activator unencrypted:edsk31vznjHSSpGExDMHYASz45VZqXN4DPxvsa4hAyY8dHM28cZzp6 --force
+<span class="hljs-comment"># Activate Athens protocol</span>
+granary client - activate protocol Pt24m4xiPbLDhVgVfABUjirbmda3yohdN82Sp9FeuAXJ4eV9otd with fitness 1 and key activator and parameters <span class="hljs-variable">$PWD</span>/protocol_parameters.json --timestamp $(TZ=<span class="hljs-string">'AAA+1'</span> date +%FT%TZ)
+<span class="hljs-comment"># Import key for bootstrapped account</span>
+granary client - import secret key <span class="hljs-string">"bootstrap1"</span> <span class="hljs-string">"unencrypted:edsk3gUfUPyBSfrS9CCgmCiQsTCHGkviBDusMxDJstFtojtc1zcpsh"</span>
+<span class="hljs-comment"># We bake a new block with the bootstrapped account</span>
+granary client - bake <span class="hljs-keyword">for</span> bootstrap1
+</code></pre>
+<p>Congratulations, you have a local sandboxed node running with the Athens protocol! We need to prepare the Taco Shop smart contract for the network, because it is written in a high-level language called <a href="https://www.ligolang.org">Ligo</a> and the Tezos node accepts <a href="https://www.michelson-lang.com/">Michelson</a> code.</p>
+<h1><a class="anchor" aria-hidden="true" id="compiling-ligo-to-michelson"></a><a href="#compiling-ligo-to-michelson" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compiling Ligo to Michelson</h1>
+<p>The story of Pedro, <em>artisan taco chef</em>, who has decided to utilize Tezos blockchain to  manage supply, pricing &amp; sales of his delicious tacos to his customers can be read <a href="https://ligolang.org/docs/tutorials/get-started/tezos-taco-shop-smart-contract/">here</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="contract-code"></a><a href="#contract-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contract Code</h2>
+<p>We will use the <a href="https://ligolang.org/docs/tutorials/get-started/tezos-taco-shop-payout/#finalizing-the-contract">finalized contract</a> from the Ligo tutorial. In your project folder, copy the following to <code>taco-shop.ligo</code></p>
+<pre><code class="hljs"><span class="hljs-keyword">type</span> <span class="hljs-type">taco_supply </span><span class="hljs-keyword">is</span> <span class="hljs-keyword">record</span>
+    current_stock : <span class="hljs-type">nat</span>;
+    max_price : <span class="hljs-type">tez</span>;
+<span class="hljs-keyword">end</span>
+<span class="hljs-keyword">type</span> <span class="hljs-type">taco_shop_storage </span><span class="hljs-keyword">is</span> map(nat, taco_supply);
+
+const ownerAddress: address = <span class="hljs-string">"tz1TGu6TN5GSez2ndXXeDX6LgUDvLzPLqgYV"</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title">buy_taco</span> (const taco_kind_index: nat ; var taco_shop_storage : <span class="hljs-type">taco_shop_storage</span>) : (<span class="hljs-type">list</span>(operation) * taco_shop_storage) <span class="hljs-keyword">is</span>
+  <span class="hljs-keyword">begin</span>
+    // Retrieve the taco_kind from the contract<span class="hljs-symbol">'s</span> storage
+    const taco_kind : <span class="hljs-type">taco_supply</span> = get_force(taco_kind_index, taco_shop_storage);
+    
+    const current_purchase_price : <span class="hljs-type">tez</span> = taco_kind.max_price / taco_kind.current_stock;
+
+    <span class="hljs-keyword">if</span> amount =/= current_purchase_price <span class="hljs-keyword">then</span>
+      // we won<span class="hljs-symbol">'t</span> sell tacos <span class="hljs-keyword">if</span> the amount isn<span class="hljs-symbol">'t</span> correct
+      fail(<span class="hljs-string">"Sorry, the taco you're trying to purchase has a different price"</span>);
+    <span class="hljs-keyword">else</span>
+      // Decrease the stock by <span class="hljs-number">1</span>n, because we<span class="hljs-symbol">'ve</span> just sold one
+      taco_kind.current_stock := <span class="hljs-keyword">abs</span>(taco_kind.current_stock - <span class="hljs-number">1</span>n);
+
+    // Update the storage <span class="hljs-keyword">with</span> the refreshed taco_kind
+    taco_shop_storage[taco_kind_index] := taco_kind;
+
+    const receiver : <span class="hljs-type">contract</span>(unit) = get_contract(ownerAddress);
+    const payoutOperation : <span class="hljs-type">operation</span> = transaction(unit, amount, receiver);
+    const operations : <span class="hljs-type">list</span>(operation) = list
+      payoutOperation
+    <span class="hljs-keyword">end</span>;
+
+  <span class="hljs-keyword">end</span> <span class="hljs-keyword">with</span> (operations, taco_shop_storage)
+</code></pre>
+<p>Use Ligo CLI to compile the contract. Learn more <a href="https://ligolang.org/docs/next/api-cli-commands/#compiling-a-contract">here</a>.</p>
+<pre><code class="hljs css language-zsh">ligo compile-contract taco-shop.ligo buy_taco
+</code></pre>
+<blockquote>
+<p>Notice that <strong>buy_taco</strong> is the entry point for this smart contract.</p>
+</blockquote>
+<p>Copy the CLI output from your terminal to <code>taco-shop.tz</code></p>
+<p><img src="/granary/img/tutorials/deploy-a-ligo-smart-contract-in-local-sandbox/michelson-smart-contract.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+This is the Michelson code of the Taco Shop.
+</div>
+<br/>
+<blockquote>
+<p>ℹ️ <strong>*.tz</strong> is used for Michelson code.</p>
+</blockquote>
+<blockquote>
+<p>⚠️ If you are saving the output through your terminal on <strong>OS X</strong>, make sure to remove the additional '\r' line-breaks. This is a nasty bug and makes the ouput incompatible with Linux systems. Find a work-around script <a href="https://github.com/stove-labs/granary/blob/features/examples/examples/deploying_ligo/contracts/compile-contract.sh#L7">here</a>.</p>
+</blockquote>
+<blockquote>
+<p>🎓Why do we need to compile more than the contract code?</p>
+</blockquote>
+<p>Let's examine the first 3 rows of the Michelson code.</p>
+<pre><code class="hljs">{ parameter<span class="hljs-built_in"> nat </span>;
+  storage (map<span class="hljs-built_in"> nat </span>(pair<span class="hljs-built_in"> nat </span>mutez)) ;
+  code { {} ;
+</code></pre>
+<p>We can see that the <em>parameter</em> is quite simple and it is not necessary to run <code>ligo compile-parameter ...</code>, however the types expected for <em>storage</em> is more complex and we will compile that in the next section.</p>
+<h2><a class="anchor" aria-hidden="true" id="initial-storage"></a><a href="#initial-storage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Initial Storage</h2>
+<p>From the <a href="https://ligolang.org/docs/tutorials/get-started/tezos-taco-shop-payout/#finalizing-the-contract">tutorial</a> we take the initial storage of <code>50</code>x <code>el clásico</code> tacos.</p>
+<pre><code class="hljs css language-sh"><span class="hljs-comment"># Compile initiale storage</span>
+ligo compile-storage taco-shop.ligo buy_taco <span class="hljs-string">"map 1n -&gt; record current_stock = 50n; max_price = 50000000mtz; end; end"</span>
+<span class="hljs-comment"># { Elt 1 (Pair 50 50000000) }</span>
+</code></pre>
+<p><img src="/granary/img/tutorials/deploy-a-ligo-smart-contract-in-local-sandbox/compile-storage.png" /></p>
+<div style="opacity: 0.7; text-align: center; font-size: 12px; margin-top:-24px;">
+The storage types can look quite different between Ligo and Michelson.
+</div>
+<br/>
+<p>We will use this output when originating the smart contract.</p>
+<h2><a class="anchor" aria-hidden="true" id="originating-the-smart-contract"></a><a href="#originating-the-smart-contract" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Originating the smart contract</h2>
+<p>Originating the smart contract in a local sandbox is basically a 2-step-process. First we inject the <em>operation</em> and then we <em>manually bake</em> the next block.</p>
+<pre><code class="hljs css language-zsh"><span class="hljs-comment"># Inject operation</span>
+granary client - originate contract taco-shop <span class="hljs-keyword">for</span> bootstrap1 transferring 0 from bootstrap1 running <span class="hljs-variable">$PWD</span>/contracts/taco-shop.tz --init <span class="hljs-string">'"{ Elt 1 (Pair 50 50000000) }"'</span> --burn-cap 2.356 --force &amp;
+<span class="hljs-comment"># Manually bake new block</span>
+granary client - bake <span class="hljs-keyword">for</span> bootstrap1
+</code></pre>
+<blockquote>
+<p>⚠️ Make sure to use the whitespace preserving '&quot;&quot;' double quotes. For more complex types, such as strings and addresses, you will need to escape the quotes like <a href="https://github.com/stove-labs/nft.stove-labs.com/blob/master/docs/index.html#L141">here</a>.</p>
+</blockquote>
+<p>Let's summarize the current state in the sandbox. We have deployed Pedro's digital Taco Shop and initialized his stock with 50 pieces of the <em>el clásico</em> type culinary.</p>
+<blockquote>
+<p>🤓 Bonus: Can you help Pedro to expand his offering, by adding the <em>especial del chef</em> type taco?</p>
+</blockquote>
+<h1><a class="anchor" aria-hidden="true" id="interacting-with-pedro-s-store"></a><a href="#interacting-with-pedro-s-store" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Interacting with Pedro's store</h1>
+<p>Finally, Pedro's store is up and running and we can already smell the fresh tacos. We are getting quite hungry and want to buy our first taco by <em>invoking</em> the smart contract. This is just a fancy word for sending a transaction to the contract. This transaction <em>can</em> contain <code>tez</code> and/or <code>parameters</code>. The client uses the <code>--arg</code> flag.</p>
+<p>Using the formula of the tutorial, we know that the minimum price depends on the available stock. Currently that should be at least <code>1 tez</code>.
+Luckily, we don't have to memorize the smart contract's address, because the client saved it for us under the name <code>taco-shop</code>.</p>
+<pre><code class="hljs css language-zsh"><span class="hljs-comment"># Call the contract by transferring 1tez </span>
+<span class="hljs-comment"># and the parameter/arugment 1 for the taco type</span>
+granary client - transfer 1 from bootstrap1 to taco-shop --arg <span class="hljs-string">'1'</span> --burn-cap 0.257 &amp;
+<span class="hljs-comment"># Manually bake new block</span>
+granary client - bake <span class="hljs-keyword">for</span> bootstrap1
+</code></pre>
+<p>Fantastic, enjoy your well deserved taco. We have set-up a local development environment, compiled an advanced smart contract from Ligo to Michelson and even deployed &amp; interacted with it - everything in record time!</p>
+<p>Please leave a comment on Twitter @stove_labs,because this is the best motivation for us. Stay tuned for more.</p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 9/23/2019 by Unknown</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/granary/docs/tutorials-interacting-with-a-tezos-smart-contract"><span class="arrow-prev">← </span><span>Interacting with a Tezos smart contract on Alphanet</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#activating-the-protocol">Activating the protocol</a></li><li><a href="#contract-code">Contract Code</a></li><li><a href="#initial-storage">Initial Storage</a></li><li><a href="#originating-the-smart-contract">Originating the smart contract</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/granary/docs/api-cli-commands.html">API</a><a href="/granary/docs/api-config.html">Config</a></div><div><h5>Community</h5><a href="http://stackoverflow.com/questions/tagged/granary" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://t.me/stove_labs">Project Chat</a><a href="https://twitter.com/stove_labs" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://github.com/stove-labs/granary">GitHub</a><a class="github-button" href="https://github.com/stove-labs/granary" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/granary/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright"><a href="https://stove-labs.com">Copyright © 2019 Stove Labs</a><div>Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> and <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div><div>Terminal window by <a href="https://codepen.io/nikitahl/pen/BERzZY">nikitahl</a></div></section><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/></footer></div></body></html>
