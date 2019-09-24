@@ -1,0 +1,34 @@
+{
+  "name": "deploying_ligo",
+  "version": "1.0.0",
+  "description": "A starter kit for Tezos blockchain development using Ligo (ligolang.org)",
+  "scripts": {
+    "init": "granary init",
+    "start": "granary node start &",
+    "stop": "granary node stop",
+    "clean": "granary node clean && granary client clean",
+    "activate-proto-004": "./activate_proto_004.sh",
+    "reset": "npm run stop && npm run clean && npm run init && npm run start",
+    "compile" : "./contracts/compile-contract.sh",
+    "originate": "./originate.sh",
+    "get-storage": "./get_storage.sh",
+    "invoke": "./invoke.sh",
+    "bake": "./bake.sh",
+    "test": "npm run stop && npm run clean && npm run init && npm run start && npm run activate-proto-004 && ./test.sh"
+  },
+  "keywords": [
+    "tezos",
+    "blockchain",
+    "dapp",
+    "smart",
+    "contract",
+    "ligo",
+    "granary",
+    "sandbox"
+  ],
+  "author": "istvan.deak@stove-labs.com",
+  "license": "MIT",
+  "dependencies": {
+    "@stove-labs/granary": "^1.0.0-pre-alpha.33"
+  }
+}

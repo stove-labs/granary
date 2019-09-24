@@ -7,6 +7,7 @@
     "Contributing": ["contributors-development-environment", "contributors-updating-the-docs", "contributors-examples"]
   },
   "tutorials": {
-    "Smart Contracts on Alphanet": ["tutorials-deploying-a-tezos-smart-contract-to-alphanet", "tutorials-interacting-with-a-tezos-smart-contract"]
+    "Smart Contracts on Alphanet": ["tutorials-deploying-a-tezos-smart-contract-to-alphanet", "tutorials-interacting-with-a-tezos-smart-contract"],
+    "Smart Contracts in a local Sandbox" : ["tutorials-deploying-ligo-taco-to-sandbox"]
   }
 }
