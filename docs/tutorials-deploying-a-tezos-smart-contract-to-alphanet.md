@@ -2,6 +2,7 @@
 id: tutorials-deploying-a-tezos-smart-contract-to-alphanet
 title: Deploying a Tezos smart contract to Alphanet
 ---
+Author: [Matej Šima](https://github.com/maht0rz/)
 
 In this tutorial we'll learn how to deploy a smart contract to the official Tezos Alphanet, utilizing Granary's built in `tezos-client`.
 

@@ -2,6 +2,7 @@
 id: tutorials-interacting-with-a-tezos-smart-contract
 title: Interacting with a Tezos smart contract on Alphanet
 ---
+Author: [Matej Šima](https://github.com/maht0rz/)
 
 In [the previous tutorial](tutorials-deploying-a-tezos-smart-contract-to-alphanet.md) we've deployed a smart contract to Alphanet, it's address at the time of the writing of the tutorial was **KT1JfYDaNGwxVZB36SqeydVdBCVh6EVu93bP**
 

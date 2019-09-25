@@ -94,7 +94,7 @@ const siteConfig = {
   twitterImage: 'img/grain.png',
 
   // Show documentation's last contributor's name.
-  enableUpdateBy: true,
+  enableUpdateBy: false,
 
   // Show documentation's last update time.
   enableUpdateTime: true,

@@ -2,6 +2,7 @@
 id: tutorials-deploying-ligo-taco-to-sandbox
 title: Deploying the Ligo Taco Shop Smart Contract to a local Sandbox
 ---
+Author: [István Deák](http://github.com/dexterslabor)
 
 In this tutorial we'll learn how to compile a Ligo smart contract to Michelson code and to deploy it to a local Sandbox, utilizing Granary's built in tezos-client.
 
