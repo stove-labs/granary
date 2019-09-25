@@ -24,7 +24,7 @@
 </div>
 <br/>
 
-All-in Tezos development environment for DAPPs, Smart Contracts and more.
+All-in-one Tezos development environment for DAPPs, Smart Contracts and more.
 
 ### 👉 Getting started
 
